@@ -36,6 +36,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="App.cs" />
+    <Compile Include="Gerenciadores\GerenciadorDeArquivo.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeContatos.cs" />
     <Compile Include="Modelos\Contato.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
