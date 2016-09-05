@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+VisualStudioVersion = 14.0.24720.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AgendaCorporativa.Droid", "AgendaCorporativa\AgendaCorporativa.Droid\AgendaCorporativa.Droid.csproj", "{A0BD8CB0-004F-465B-9814-AD2301134FDB}"
 EndProject
@@ -127,8 +127,8 @@ Global
 		{D1FDBDF0-9A76-420B-826C-CE732129D361}.AppStore|x86.ActiveCfg = AppStore|iPhone
 		{D1FDBDF0-9A76-420B-826C-CE732129D361}.Debug|Any CPU.ActiveCfg = Debug|iPhone
 		{D1FDBDF0-9A76-420B-826C-CE732129D361}.Debug|ARM.ActiveCfg = Debug|iPhone
-		{D1FDBDF0-9A76-420B-826C-CE732129D361}.Debug|iPhone.ActiveCfg = Debug|iPhone
-		{D1FDBDF0-9A76-420B-826C-CE732129D361}.Debug|iPhone.Build.0 = Debug|iPhone
+		{D1FDBDF0-9A76-420B-826C-CE732129D361}.Debug|iPhone.ActiveCfg = Debug|iPhoneSimulator
+		{D1FDBDF0-9A76-420B-826C-CE732129D361}.Debug|iPhone.Build.0 = Debug|iPhoneSimulator
 		{D1FDBDF0-9A76-420B-826C-CE732129D361}.Debug|iPhoneSimulator.ActiveCfg = Debug|iPhoneSimulator
 		{D1FDBDF0-9A76-420B-826C-CE732129D361}.Debug|iPhoneSimulator.Build.0 = Debug|iPhoneSimulator
 		{D1FDBDF0-9A76-420B-826C-CE732129D361}.Debug|x64.ActiveCfg = Debug|iPhone
