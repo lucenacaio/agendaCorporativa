@@ -17,7 +17,7 @@ namespace AgendaCorporativa.Gerenciadores
         /// </summary>
         /// <param name="termo">Termo da pesquisa(se for vazio, retorna todos)</param>
         /// <returns>Lista de contatos corporativos</returns>
-        public List<Contato> PesquisaContatos(string termo)
+        public async Task<List<Contato>> PesquisaContatos(string termo)
         {
             
             //TODO - Deve obter os contatos na lista de contatos.
