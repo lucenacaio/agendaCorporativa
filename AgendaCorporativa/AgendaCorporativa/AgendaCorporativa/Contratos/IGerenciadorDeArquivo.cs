@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 
 namespace AgendaCorporativa.Contratos
 {
-    public interface IGerenciadorDeDownload
+    public interface IGerenciadorDeArquivo
     {
-        Task<string> IniciarDownload(string url);
+            void SalvarTexto(string filename, string text);
+
+            string CarregarTexto(string filename);
     }
 }

@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
 namespace AgendaCorporativa.Gerenciadores
 {
@@ -13,7 +14,11 @@ namespace AgendaCorporativa.Gerenciadores
     /// </summary>
     public class GerenciadorDeContatos
     {
-        IGerenciadorDeDownload gerenciadorDeDownload;
+        private IGerenciadorDeDownload gerenciadorDeDownload;
+
+        private readonly string UrlDoArquivo = "http://www.codeandlions.com/teste.csv";
+
+        private readonly string NomeArquivoLocal = "temp.txt";
 
         public GerenciadorDeContatos(IGerenciadorDeDownload gerenciadorDeDownload)
         {
@@ -27,7 +32,7 @@ namespace AgendaCorporativa.Gerenciadores
         /// <returns>Lista de contatos corporativos</returns>
         public async Task<List<Contato>> PesquisaContatos(string termo)
         {
-            string conteudo = await gerenciadorDeDownload.IniciarDownload();
+            string conteudo = DependencyService.Get<IGerenciadorDeArquivo>().CarregarTexto(NomeArquivoLocal);
 
             List<Contato> contatos = ConverteParaLista(conteudo);
 
@@ -39,11 +44,18 @@ namespace AgendaCorporativa.Gerenciadores
         /// </summary>
         public async void SincronizarContatos()
         {
-            string conteudo = await gerenciadorDeDownload.IniciarDownload();
+            string conteudo = await gerenciadorDeDownload.IniciarDownload(UrlDoArquivo);
+
+            DependencyService.Get<IGerenciadorDeArquivo>().SalvarTexto(NomeArquivoLocal, conteudo);
 
             return;
         }
 
+        /// <summary>
+        /// Converte
+        /// </summary>
+        /// <param name="conteudoDoArquivo"></param>
+        /// <returns></returns>
         protected List<Contato> ConverteParaLista(string conteudoDoArquivo)
         {
             List<Contato> contatos = new List<Contato>();

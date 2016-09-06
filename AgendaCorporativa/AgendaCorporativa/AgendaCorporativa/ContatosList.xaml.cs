@@ -13,13 +13,13 @@ namespace AgendaCorporativa
 {
     public partial class ContatosList : ContentPage
     {
-        IGerenciadorDeDownload gerenciadorDeDownload;
-        GerenciadorDeContatos gerenciador;
+        GerenciadorDeContatos gerenciadorDeContatos;
+
         public ContatosList(IGerenciadorDeDownload gerenciadorDeDownload)
         {
             InitializeComponent();
 
-            gerenciador = new GerenciadorDeContatos(gerenciadorDeDownload);
+            gerenciadorDeContatos = new GerenciadorDeContatos(gerenciadorDeDownload);
 
             //todo verificar se é melhor criar o botão dinamico ou deixar no xaml @mpleite1
             //var syncButton = new Button
@@ -44,8 +44,9 @@ namespace AgendaCorporativa
         {
             try
             {
-                gerenciadorDeDownload.IniciarDownload();
-                listaContatos.ItemsSource = await gerenciador.PesquisaContatos("");
+
+
+                listaContatos.ItemsSource = await gerenciadorDeContatos.PesquisaContatos("");
             }
             catch (Exception ex)
             {
@@ -100,7 +101,7 @@ namespace AgendaCorporativa
 
         private async Task AtualizarContatos(bool showActivityIndicator, bool syncItems)
         {
-            listaContatos.ItemsSource = await gerenciador.PesquisaContatos("");
+            listaContatos.ItemsSource = await gerenciadorDeContatos.PesquisaContatos("");
         }
     }
 }

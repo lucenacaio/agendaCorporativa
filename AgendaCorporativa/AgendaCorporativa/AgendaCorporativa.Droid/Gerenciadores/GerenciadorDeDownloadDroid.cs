@@ -18,12 +18,12 @@ namespace AgendaCorporativa.Droid.Gerenciadores
 {
     public class GerenciadorDeDownloadDroid : IGerenciadorDeDownload
     {
-        public async Task<string> IniciarDownload()
+        public async Task<string> IniciarDownload(string url)
         {
             var webClient = new WebClient();
 
             webClient.Encoding = Encoding.UTF8;
-            return await webClient.DownloadStringTaskAsync(new Uri("http://www.codeandlions.com/teste.csv"));
+            return await webClient.DownloadStringTaskAsync(new Uri(url));
         }
     }
 }
