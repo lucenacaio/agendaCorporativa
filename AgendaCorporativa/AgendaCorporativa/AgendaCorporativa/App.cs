@@ -10,10 +10,10 @@ namespace AgendaCorporativa
     public class App : Application
     {
 
-        public App()
+        public App(Contratos.IGerenciadorDeDownload gerenciadorDeDownload)
         {
             // The root page of your application
-            MainPage = new ContatosList();
+            MainPage = new ContatosList(gerenciadorDeDownload);
         }
 
         protected override void OnStart()

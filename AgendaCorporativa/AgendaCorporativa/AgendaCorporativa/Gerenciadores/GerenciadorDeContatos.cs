@@ -1,4 +1,5 @@
-﻿using AgendaCorporativa.Modelos;
+﻿using AgendaCorporativa.Contratos;
+using AgendaCorporativa.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,6 +13,13 @@ namespace AgendaCorporativa.Gerenciadores
     /// </summary>
     public class GerenciadorDeContatos
     {
+        IGerenciadorDeDownload gerenciadorDeDownload;
+
+        public GerenciadorDeContatos(IGerenciadorDeDownload gerenciadorDeDownload)
+        {
+            this.gerenciadorDeDownload = gerenciadorDeDownload;
+        }
+
         /// <summary>
         /// Busca os contatos
         /// </summary>
@@ -19,19 +27,43 @@ namespace AgendaCorporativa.Gerenciadores
         /// <returns>Lista de contatos corporativos</returns>
         public async Task<List<Contato>> PesquisaContatos(string termo)
         {
-            
-            //TODO - Deve obter os contatos na lista de contatos.
-            return new List<Contato>();
+            string conteudo = await gerenciadorDeDownload.IniciarDownload();
+
+            List<Contato> contatos = ConverteParaLista(conteudo);
+
+            return contatos;
         }
 
         /// <summary>
         /// Sincroniza os contatos(baixa o arquivo CSV e atualizar os contatos na agenda do usuário)
         /// </summary>
-        public void SincronizarContatos()
+        public async void SincronizarContatos()
         {
-            //TODO - Implementar lógica para baixar o arquivo
-            //TODO - Implementar lógica para pegar a lista de Contatos do Usuario
-            //TODO - Implementar lógica de atualização dos contatos do usuário
+            string conteudo = await gerenciadorDeDownload.IniciarDownload();
+
+            return;
+        }
+
+        protected List<Contato> ConverteParaLista(string conteudoDoArquivo)
+        {
+            List<Contato> contatos = new List<Contato>();
+            foreach (string linhaDoArquivo in conteudoDoArquivo.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            {
+                Contato contato = new Contato();
+                string[] valores = linhaDoArquivo.Split(';');
+                //IMEI
+                contato.IMEI = valores[0];
+                //Telefone
+                contato.Telefones.Add(valores[1]);
+                //Nome
+                contato.NomeFuncionario = valores[2];
+                //Sobrenome
+                contato.SobrenomeFuncionario = valores[3];
+
+                contatos.Add(contato);
+            }
+
+            return contatos;
         }
     }
 }

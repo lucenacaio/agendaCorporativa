@@ -39,7 +39,7 @@
     <Compile Include="ContatosList.xaml.cs">
       <DependentUpon>ContatosList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Gerenciadores\GerenciadorDeArquivo.cs" />
+    <Compile Include="Contratos\IGerenciadorDeDownload.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeContatos.cs" />
     <Compile Include="Modelos\Contato.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

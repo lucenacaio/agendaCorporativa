@@ -7,16 +7,19 @@ using AgendaCorporativa.Modelos;
 
 using Xamarin.Forms;
 using AgendaCorporativa.Gerenciadores;
+using AgendaCorporativa.Contratos;
 
 namespace AgendaCorporativa
 {
     public partial class ContatosList : ContentPage
     {
+        IGerenciadorDeDownload gerenciadorDeDownload;
         GerenciadorDeContatos gerenciador;
-        public ContatosList()
+        public ContatosList(IGerenciadorDeDownload gerenciadorDeDownload)
         {
             InitializeComponent();
-            gerenciador = new GerenciadorDeContatos();
+
+            gerenciador = new GerenciadorDeContatos(gerenciadorDeDownload);
 
             //todo verificar se é melhor criar o botão dinamico ou deixar no xaml @mpleite1
             //var syncButton = new Button
@@ -39,8 +42,16 @@ namespace AgendaCorporativa
 
         async Task CompleteItem(Contato contato)
         {
-            listaContatos.ItemsSource = await gerenciador.PesquisaContatos("");
-        }
+            try
+            {
+                gerenciadorDeDownload.IniciarDownload();
+                listaContatos.ItemsSource = await gerenciador.PesquisaContatos("");
+            }
+            catch (Exception ex)
+            {
+                return;
+            }
+         }
 
         public async void OnSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -48,7 +59,7 @@ namespace AgendaCorporativa
             if (Device.OS != TargetPlatform.iOS && contato != null)
             {
                 await DisplayAlert(contato.NomeCompleto, "Selecionado: " + contato.NomeCompleto, "OK");
-
+                //TODO - Navega para a página de detalhe
             }
         }
 
