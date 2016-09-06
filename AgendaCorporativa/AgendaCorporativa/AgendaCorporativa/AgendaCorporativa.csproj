@@ -41,6 +41,7 @@
     </Compile>
     <Compile Include="Contratos\IGerenciadorDeArquivo.cs" />
     <Compile Include="Contratos\IGerenciadorDeDownload.cs" />
+    <Compile Include="Contratos\IIMEIDoAparelho.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeContatos.cs" />
     <Compile Include="Modelos\Contato.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

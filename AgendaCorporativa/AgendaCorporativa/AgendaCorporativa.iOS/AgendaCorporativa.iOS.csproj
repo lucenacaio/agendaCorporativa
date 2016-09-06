@@ -90,6 +90,7 @@
   <ItemGroup>
     <Compile Include="Gerenciadores\GerenciadorDeArquivoIOS.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeDownloadIOS.cs" />
+    <Compile Include="Gerenciadores\IMEIIOS.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
