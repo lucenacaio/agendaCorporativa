@@ -8,6 +8,6 @@ namespace AgendaCorporativa.Contratos
 {
     public interface IIMEIDoAparelho
     {
-        string GetImei();
+        string[] GetImei();
     }
 }

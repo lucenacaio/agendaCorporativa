@@ -30,9 +30,10 @@ namespace AgendaCorporativa.iOS.Gerenciadores
 
         #endregion
 
-        public string GetImei()
+        public string[] GetImei()
         {
-            string serial = string.Empty;
+            
+            string[] serial = new string[1];
             uint platformExpert = IOServiceGetMatchingService(0, IOServiceMatching("IOPlatformExpertDevice"));
             if (platformExpert != 0)
             {
@@ -40,7 +41,7 @@ namespace AgendaCorporativa.iOS.Gerenciadores
                 IntPtr serialNumber = IORegistryEntryCreateCFProperty(platformExpert, key.Handle, IntPtr.Zero, 0);
                 if (serialNumber != IntPtr.Zero)
                 {
-                    serial = NSString.FromHandle(serialNumber);
+                    serial[0] = NSString.FromHandle(serialNumber);
                 }
 
                 IOObjectRelease(platformExpert);
