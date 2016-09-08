@@ -1,4 +1,5 @@
 ﻿using AgendaCorporativa.Contratos;
+using AgendaCorporativa.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,23 +9,22 @@ using Xamarin.Forms;
 
 namespace AgendaCorporativa.Gerenciadores
 {
-    class AutorizacaoDeAparelho
+    public class AutorizacaoDeAparelho
     {
 
-        public bool VarificarPermissao()
+        public async Task<bool> VarificarPermissao()
         {
             bool result = false;
 
+            GerenciadorDeContatos gerenciadorDeContatos = new GerenciadorDeContatos(DependencyService.Get<IGerenciadorDeDownload>());
             string[] listaDeImeiDoAparelho = DependencyService.Get<IIMEIDoAparelho>().GetImei();
-            string[] listaDeImeiPermitidos = new string[1]{"354785070938715"};
+            List<Contato> contatos = await gerenciadorDeContatos.PesquisaContatos("");
 
             foreach (string imeiUsuario in listaDeImeiDoAparelho)
             {
-                if (listaDeImeiPermitidos.Contains(imeiUsuario))
-                {
-                    result = true;
+                result = contatos.Exists(x => string.Equals(x.IMEI, imeiUsuario));
+                if (result)
                     break;
-                }
             }
 
             return result;
