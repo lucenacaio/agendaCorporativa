@@ -9,7 +9,6 @@ namespace AgendaCorporativa
 {
     public class App : Application
     {
-
         public App(Contratos.IGerenciadorDeDownload gerenciadorDeDownload)
         {
             NavigationPage mainPage = new NavigationPage(new ContatosList(gerenciadorDeDownload));

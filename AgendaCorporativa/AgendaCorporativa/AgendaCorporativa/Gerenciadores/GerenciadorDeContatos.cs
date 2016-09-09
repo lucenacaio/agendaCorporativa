@@ -46,8 +46,8 @@ namespace AgendaCorporativa.Gerenciadores
 
             //Busca o termpo ordenado por nome.
             resultadoDePesquisa = (from contato in contatos
-                                   where contato.NomeFuncionario.Contains(termo)
-                                   orderby contato.NomeFuncionario
+                                   where contato.NomeCompleto.ToUpper().Contains(termo.ToUpper())
+                                   orderby contato.NomeCompleto
                                    select contato)?.ToList();
 
             return resultadoDePesquisa;

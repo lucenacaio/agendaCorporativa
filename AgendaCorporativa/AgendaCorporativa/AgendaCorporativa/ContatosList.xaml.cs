@@ -24,12 +24,16 @@ namespace AgendaCorporativa
             gerenciadorDeContatos = new GerenciadorDeContatos(gerenciadorDeDownload);
         }
 
+        private async void Pesquisa_OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            listaContatos.ItemsSource = await gerenciadorDeContatos.PesquisaContatos(e.NewTextValue);
+        }
 
         private async Task chamarContatos()
         {
             var contatos = await carregarAgenda();
             List<Contato> contatosLista = new List<Contato>();
-            
+
             foreach (Contact contato in contatos)
             {
                 Contato cont = new Contato();
@@ -60,8 +64,6 @@ namespace AgendaCorporativa
             return contatos;
         }
 
-
-
         protected override async void OnAppearing()
         {
             base.OnAppearing();
@@ -69,34 +71,13 @@ namespace AgendaCorporativa
             await AtualizarContatos(true, syncItems: false);
         }
 
-        async Task CompleteItem(Contato contato)
-        {
-            try
-            {
-
-
-                listaContatos.ItemsSource = await gerenciadorDeContatos.PesquisaContatos("");
-            }
-            catch (Exception ex)
-            {
-                return;
-            }
-        }
-
         public void OnSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var contato = e.SelectedItem as Contato;
-            if (Device.OS != TargetPlatform.iOS && contato != null)
+            if (contato != null)
             {
                 Navigation.PushAsync(new DetalharContato(contato));
             }
-        }
-
-        public async void OnComplete(object sender, EventArgs e)
-        {
-            var mi = ((MenuItem)sender);
-            var contato = mi.CommandParameter as Contato;
-            await CompleteItem(contato);
         }
 
         public async void OnRefresh(object sender, EventArgs e)

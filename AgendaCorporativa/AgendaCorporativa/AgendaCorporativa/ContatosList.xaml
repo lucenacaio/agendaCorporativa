@@ -18,45 +18,37 @@
              x:Name="nomePesquisa"
              HorizontalOptions="FillAndExpand"
              TextColor="Black"
-             Placeholder="Pesquisar" />
+             Placeholder="Pesquisar"
+             TextChanged="Pesquisa_OnTextChanged"/>
 
       <!--Lista dos contatos-->
       <ListView x:Name="listaContatos"
                 Grid.Row="1"
                 BackgroundColor="White"
                 ItemSelected="OnSelected">
-        <ListView.ItemTemplate>
-          <DataTemplate>
-            <ViewCell>
-              <ViewCell.ContextActions>
-                <MenuItem Clicked="OnComplete" Text="Complete" CommandParameter="{Binding .}" />
-              </ViewCell.ContextActions>
-              <StackLayout HorizontalOptions="Start" VerticalOptions="Center" Padding="10">
-                <Label Text="{Binding NomeCompleto}"
-                       TextColor="#9E9E9E"
-                       FontSize="Medium"/>
-              </StackLayout>
-            </ViewCell>
-          </DataTemplate>
-        </ListView.ItemTemplate>
+              <ListView.ItemTemplate>
+                <DataTemplate>
+                  <ViewCell>
+                    <StackLayout HorizontalOptions="Start" VerticalOptions="Center" Padding="10">
+                      <Label Text="{Binding NomeCompleto}"
+                             TextColor="#9E9E9E"
+                             FontSize="Medium"/>
+                    </StackLayout>
+                  </ViewCell>
+                </DataTemplate>
+              </ListView.ItemTemplate>
       </ListView>
 
       <!--Botao de Sincronizar-->
-      <StackLayout Grid.Row="2"
-					Grid.Column="0"
-					Padding="10,10,10,10"
-					VerticalOptions="End">
-
-        <Button Text="SINCRONIZAR CONTATOS"
-					      BackgroundColor="#5ABAFF"
-                FontSize="Medium"
-                VerticalOptions="Center"
-                TextColor="#FFFFFF"
-					      MinimumHeightRequest="30"
-                Clicked="OnSyncItems" />
-
-      </StackLayout>
-
+      <Button Grid.Row="2"
+              Text="SINCRONIZAR CONTATOS"
+              Margin="10"
+              BackgroundColor="#5ABAFF"
+              FontSize="Medium"
+              VerticalOptions="Center"
+              TextColor="#FFFFFF"
+              MinimumHeightRequest="30"
+              Clicked="OnSyncItems" />
 
     </Grid>
   </ContentPage.Content>
