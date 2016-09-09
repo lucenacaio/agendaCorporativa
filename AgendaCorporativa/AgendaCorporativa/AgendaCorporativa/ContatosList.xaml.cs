@@ -101,6 +101,8 @@ namespace AgendaCorporativa
 
         private async Task AtualizarContatos(bool showActivityIndicator, bool syncItems)
         {
+            gerenciadorDeContatos.SincronizarContatos();
+
             listaContatos.ItemsSource = await gerenciadorDeContatos.PesquisaContatos("");
         }
     }

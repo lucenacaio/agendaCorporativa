@@ -36,7 +36,13 @@ namespace AgendaCorporativa.Gerenciadores
 
             List<Contato> contatos = ConverteParaLista(conteudo);
 
-            return contatos;
+            //Busca o termpo ordenado por nome.
+            List<Contato> contatosOrdenados = (from contato in contatos
+                                               where contato.NomeFuncionario.Contains(termo)
+                                               orderby contato.NomeFuncionario
+                                               select contato)?.ToList();
+
+            return contatosOrdenados;
         }
 
         /// <summary>
