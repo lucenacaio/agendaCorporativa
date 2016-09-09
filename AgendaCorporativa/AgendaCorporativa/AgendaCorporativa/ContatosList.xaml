@@ -1,58 +1,75 @@
-﻿<?xml version="1.0" encoding="utf-8" ?>
-<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
-             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="AgendaCorporativa.ContatosList"
-             Title="Agenda Corporativa">
-  <Grid RowSpacing="0">
-    <Grid.RowDefinitions>
-      <RowDefinition Height="Auto" />
-      <RowDefinition Height="*" />
-    </Grid.RowDefinitions>
-    <ActivityIndicator Grid.RowSpan="2"
-                     HorizontalOptions="Center"
-                     VerticalOptions="Center"
-                     IsVisible="False"
-                     IsEnabled="True"
-                     x:Name="syncIndicator"/>
-    <StackLayout Grid.Row="0" BackgroundColor="#5ABAFF" Padding="10,30,10,10">
-      <Label TextColor="#555555" Text="Agenda Corporativa" />
-      <Grid>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition/>
-          <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Entry x:Name="nomePesquisa"
-              Placeholder="Pesquisar" />
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="AgendaCorporativa.ContatosList" Title="Agenda Corporativa">
+  <ContentPage.Content>
+    <Grid RowSpacing="0" BackgroundColor="#004E9E">
+      <Grid.RowDefinitions>
+        <RowDefinition Height="120" />
+        <RowDefinition Height="14*" />
+        <RowDefinition Height="2*" />
+      </Grid.RowDefinitions>
+      <Grid.ColumnDefinitions>
+        <ColumnDefinition Width="*" />
+      </Grid.ColumnDefinitions>
+
+      <ActivityIndicator Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="False" IsEnabled="True" x:Name="syncIndicator" />
+
+      <!--Cabecalho e campo de pesquisa-->
+      <Grid Grid.Row="0" Padding="10">
+        <Grid.RowDefinitions>
+          <RowDefinition Height="45"/>
+          <RowDefinition Height="45"/>
+        </Grid.RowDefinitions>
+        <Label Grid.Row="0"
+               HorizontalOptions="FillAndExpand"
+               HorizontalTextAlignment="Center"
+               VerticalTextAlignment="Center"
+               TextColor="#ffffff"
+               Text="Agenda Corporativa" 
+                FontSize="Medium"/>
+        
+        <Entry Grid.Row="1" BackgroundColor="#FFFFFF" 
+               x:Name="nomePesquisa"
+               HorizontalOptions="FillAndExpand"
+               Placeholder="Pesquisar" />
+
       </Grid>
-      <Grid>
-        <Grid.ColumnDefinitions>
-          <ColumnDefinition/>
-          <ColumnDefinition Width="Auto"/>
-        </Grid.ColumnDefinitions>
-        <Button Text="Sincronizar"
-                 BackgroundColor="#FFFFFF"
-                MinimumHeightRequest="30"
-                Clicked="OnSyncItems" />
-      </Grid>
-    </StackLayout>
-    <ListView x:Name="listaContatos"
-				ItemSelected="OnSelected"
-				IsPullToRefreshEnabled="true" Refreshing="OnRefresh"
-				Grid.Row="1">
-      <ListView.ItemTemplate>
-        <DataTemplate>
-          <ViewCell>
-            <ViewCell.ContextActions>
-              <MenuItem Clicked="OnComplete" Text="Complete" CommandParameter="{Binding .}"/>
-            </ViewCell.ContextActions>
-            <StackLayout HorizontalOptions="StartAndExpand" Orientation="Horizontal" Padding="15,5,0,0">
-              <StackLayout Padding="5,0,0,0" VerticalOptions="StartAndExpand" Orientation="Vertical">
-                <Label Text="{Binding NomeCompleto}"  />
+      
+      
+      <!--Lista dos contatos-->
+      <ListView x:Name="listaContatos"
+        Grid.Row="1" Grid.Column="0"
+        BackgroundColor="White" ItemSelected="OnSelected">
+        <ListView.ItemTemplate>
+          <DataTemplate>
+            <ViewCell>
+              <ViewCell.ContextActions>
+                <MenuItem Clicked="OnComplete" Text="Complete" CommandParameter="{Binding .}" />
+              </ViewCell.ContextActions>
+              <StackLayout HorizontalOptions="Start" VerticalOptions="Center" Padding="10,10">
+                  <Label Text="{Binding NomeCompleto}" 
+                         TextColor="#9E9E9E"
+                         FontSize="Medium"/>
               </StackLayout>
-            </StackLayout>
-          </ViewCell>
-        </DataTemplate>
-      </ListView.ItemTemplate>
-    </ListView>
-  </Grid>
+            </ViewCell>
+          </DataTemplate>
+        </ListView.ItemTemplate>
+      </ListView>
+      <StackLayout Grid.Row="2"
+					Grid.Column="0"
+					Padding="10,10,10,10"
+					VerticalOptions="End">
+
+        <Button Text="SINCRONIZAR CONTATOS"
+					      BackgroundColor="#5ABAFF"
+                FontSize="Medium"
+                VerticalOptions="Center"
+                TextColor="#FFFFFF"
+					      MinimumHeightRequest="30" 
+                Clicked="OnSyncItems" />
+
+      </StackLayout>
+
+
+    </Grid>
+  </ContentPage.Content>
 </ContentPage>
