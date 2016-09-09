@@ -54,13 +54,12 @@ namespace AgendaCorporativa
             }
          }
 
-        public async void OnSelected(object sender, SelectedItemChangedEventArgs e)
+        public void OnSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var contato = e.SelectedItem as Contato;
             if (Device.OS != TargetPlatform.iOS && contato != null)
             {
-                await DisplayAlert(contato.NomeCompleto, "Selecionado: " + contato.NomeCompleto, "OK");
-                //TODO - Navega para a página de detalhe
+                Navigation.PushAsync(new DetalharContato(contato));
             }
         }
 
