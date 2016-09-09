@@ -14,11 +14,12 @@ namespace AgendaCorporativa
         Contato _contato;
 
 
-        public DetalharContato()
+        public DetalharContato(Contato contato)
         {
             InitializeComponent();
+            
+            _contato = contato;
 
-            Mock();
             LoadDados();
             listaTelefones.SeparatorVisibility = Xamarin.Forms.SeparatorVisibility.Default;
             listaTelefones.SeparatorColor = Color.FromHex("C8C7CC");
@@ -39,23 +40,32 @@ namespace AgendaCorporativa
             _contato.NomeEmpresa = "Stefanini";
         }
 
+        /// <summary>
+        /// Carrega Nome e Empresa de contato e chama o carregamento de Telefones e emails
+        /// </summary>
         void LoadDados()
         {
             nomeSobrenome.Text = _contato.NomeCompleto;
-            empresa.Text = _contato.NomeEmpresa;
+            empresa.Text = _contato.NomeEmpresa ?? "";
             LoadListaTelefones();
             LoadListaEmails();
         }
 
+        /// <summary>
+        /// Carrega lista de telefones
+        /// </summary>
         void LoadListaTelefones()
         {
             listaTelefones.ItemsSource = _contato.Telefones;
         }
 
+        /// <summary>
+        /// Carregar lista de emails
+        /// </summary>
         void LoadListaEmails()
         {
             List<string> emails = new List<string>();
-            emails.Add(_contato.Email);
+            emails.Add(_contato.Email ?? "");
             listaEmails.ItemsSource = emails;
         }
 
