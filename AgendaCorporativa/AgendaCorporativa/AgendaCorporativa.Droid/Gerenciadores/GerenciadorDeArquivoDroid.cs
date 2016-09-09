@@ -23,7 +23,7 @@ namespace AgendaCorporativa.Droid.Gerenciadores
         {
             var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
             var filePath = Path.Combine(documentsPath, filename);
-            return File.ReadAllText(filePath);
+            return File.Exists(filePath) ? File.ReadAllText(filePath) : "";
         }
 
         public void SalvarTexto(string filename, string text)
