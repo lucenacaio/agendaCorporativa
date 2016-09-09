@@ -32,17 +32,25 @@ namespace AgendaCorporativa.Gerenciadores
         /// <returns>Lista de contatos corporativos</returns>
         public async Task<List<Contato>> PesquisaContatos(string termo)
         {
-            string conteudo = DependencyService.Get<IGerenciadorDeArquivo>().CarregarTexto(NomeArquivoLocal);
-
+            string conteudo = "";
+            try
+            {
+                conteudo = DependencyService.Get<IGerenciadorDeArquivo>().CarregarTexto(NomeArquivoLocal);
+            }
+            catch (Exception)
+            {
+                //TODO - Tratar melhor o erro ao tentar carregar o arquivo.(Conexao web)
+            }
+            List<Contato> resultadoDePesquisa = new List<Contato>();
             List<Contato> contatos = ConverteParaLista(conteudo);
 
             //Busca o termpo ordenado por nome.
-            List<Contato> contatosOrdenados = (from contato in contatos
-                                               where contato.NomeFuncionario.Contains(termo)
-                                               orderby contato.NomeFuncionario
-                                               select contato)?.ToList();
+            resultadoDePesquisa = (from contato in contatos
+                                   where contato.NomeFuncionario.Contains(termo)
+                                   orderby contato.NomeFuncionario
+                                   select contato)?.ToList();
 
-            return contatosOrdenados;
+            return resultadoDePesquisa;
         }
 
         /// <summary>
