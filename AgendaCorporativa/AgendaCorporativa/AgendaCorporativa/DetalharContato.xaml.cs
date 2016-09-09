@@ -1,4 +1,5 @@
-﻿using AgendaCorporativa.Modelos;
+﻿using AgendaCorporativa.Contratos;
+using AgendaCorporativa.Modelos;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,19 +26,13 @@ namespace AgendaCorporativa
             listaTelefones.SeparatorColor = Color.FromHex("C8C7CC");
         }
 
-        void Mock()
+        public void OnSelected(object sender, SelectedItemChangedEventArgs e)
         {
-            _contato = new Contato();
-            _contato.Email = "email@mock.com.br";
-            _contato.Telefones = new List<Telefone>()
+            var telefone = e.SelectedItem as Telefone;
+            if (Device.OS != TargetPlatform.iOS && telefone != null)
             {
-                new Telefone {Numero="981274020", DDD="83" },
-                new Telefone {Numero="988881234", DDD="41" },
-                new Telefone {Numero="912348765", DDD="21" }
-            };
-            _contato.NomeFuncionario = "Fulano";
-            _contato.SobrenomeFuncionario = "Mock Mocado";
-            _contato.NomeEmpresa = "Stefanini";
+                DependencyService.Get<IChamar>().ChamarNumero(telefone.Numero);
+            }
         }
 
         /// <summary>

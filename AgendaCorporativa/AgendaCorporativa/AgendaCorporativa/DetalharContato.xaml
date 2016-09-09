@@ -72,7 +72,7 @@
             <Label Text="Telefones" 
                 Style="{StaticResource LabelTitleStyle}"/>
 
-            <ListView x:Name="listaTelefones">
+            <ListView x:Name="listaTelefones" ItemSelected="OnSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <ViewCell>
