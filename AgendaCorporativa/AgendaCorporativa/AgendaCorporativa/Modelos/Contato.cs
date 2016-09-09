@@ -13,7 +13,7 @@ namespace AgendaCorporativa.Modelos
     {
         public Contato()
         {
-            Telefones = new List<string>();
+            Telefones = new List<Telefone>();
         }
 
         /// <summary>
@@ -49,7 +49,20 @@ namespace AgendaCorporativa.Modelos
         /// <summary>
         /// Telefones do funcionario
         /// </summary>
-        public List<string> Telefones { get; set; }
+        public List<Telefone> Telefones { get; set; }
 
+    }
+
+    public class Telefone
+    {
+        /// <summary>
+        /// Número de telefone
+        /// </summary>
+        public string Numero { get; set; }
+
+        /// <summary>
+        /// DDD
+        /// </summary>
+        public string DDD { get; set; }
     }
 }

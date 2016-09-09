@@ -42,6 +42,9 @@
     <Compile Include="Contratos\IGerenciadorDeArquivo.cs" />
     <Compile Include="Contratos\IGerenciadorDeDownload.cs" />
     <Compile Include="Contratos\IIMEIDoAparelho.cs" />
+    <Compile Include="DetalharContato.xaml.cs">
+      <DependentUpon>DetalharContato.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Gerenciadores\AutorizacaoDeAparelho.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeContatos.cs" />
     <Compile Include="Modelos\Contato.cs" />
@@ -67,6 +70,12 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ContatosList.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="DetalharContato.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

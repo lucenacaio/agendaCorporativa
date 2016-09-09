@@ -66,7 +66,7 @@ namespace AgendaCorporativa.Gerenciadores
                 //IMEI
                 contato.IMEI = valores[0];
                 //Telefone
-                contato.Telefones.Add(valores[1]);
+                contato.Telefones.Add(new Telefone { Numero = valores[1] });
                 //Nome
                 contato.NomeFuncionario = valores[2];
                 //Sobrenome

@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="AgendaCorporativa.DetalharContato">
+
+    <Grid BackgroundColor="#004e9e" >
+        <Grid.RowDefinitions>
+            <RowDefinition Height="40" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <StackLayout Grid.Row="0" HorizontalOptions="StartAndExpand" Orientation="Horizontal" VerticalOptions="Center"> 
+            <Image Source="arrow.png"/>
+        </StackLayout>
+
+        <Grid Grid.Row="1"  Padding="16,20,16,16" BackgroundColor="#FFFFFF">
+
+            <!--Region Configuracoes-->
+
+            <Grid.Resources>
+                <ResourceDictionary>
+                    <Style TargetType="Label" x:Key="LabelTitleStyle">
+                        <Setter Property="FontAttributes" Value="Bold" />
+                        <Setter Property="TextColor" Value="#4396b5" />
+                        <Setter Property="FontSize" Value="16" />
+                    </Style>
+                    <Style TargetType="Label" x:Key="LabelDescriptionStyle">
+                        <Setter Property="TextColor" Value="#5c6570" />
+                        <Setter Property="FontSize" Value="22" />
+                    </Style>
+                    <Style TargetType="StackLayout" x:Key="StackLayoutStyle">
+                        <Setter Property="HorizontalOptions" Value="StartAndExpand" />
+                        <Setter Property="Orientation" Value="Horizontal" />
+                        <Setter Property="Padding" Value="15,5,0,0" />
+                    </Style>
+                </ResourceDictionary>
+            </Grid.Resources>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="20*" />
+                <RowDefinition Height="20*" />
+                <RowDefinition Height="60*" />
+            </Grid.RowDefinitions>
+
+            <!--EndRegion-->
+
+            <!--Region Dados-->
+
+            <StackLayout Grid.Row="0" Padding="15,5,0,0">
+                <Label x:Name="nomeSobrenome" Style="{StaticResource LabelDescriptionStyle}"/>
+                <Label x:Name="empresa" Style="{StaticResource LabelDescriptionStyle}"/>
+            </StackLayout>
+
+            <!--EndRegion-->
+
+            <!--Region Lista de Emais-->
+
+            <StackLayout Grid.Row="1" >
+                <Label Text="Email" 
+                   Style="{StaticResource LabelTitleStyle}"/>
+
+                <ListView x:Name="listaEmails" >
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Style="{StaticResource StackLayoutStyle}">
+                                    <Label Text="{Binding}" 
+                                       Style="{StaticResource LabelDescriptionStyle}"/>
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+            </StackLayout>
+
+            <!--EndRegion-->
+
+            <!--Region Lista de Telefones-->
+
+            <StackLayout Grid.Row="2">
+                <Label Text="Telefones" 
+                   Style="{StaticResource LabelTitleStyle}"/>
+
+                <ListView x:Name="listaTelefones">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout Style="{StaticResource StackLayoutStyle}"  >
+
+                                    <Image Source="call.png"/>
+
+                                    <StackLayout Padding="10,0,10,0" VerticalOptions="Center">
+                                        <Label Text="{Binding DDD}" 
+                                           Style="{StaticResource LabelDescriptionStyle}" />
+                                    </StackLayout>
+
+                                    <StackLayout VerticalOptions="Center">
+                                        <Label Text="{Binding Numero}"  
+                                           Style="{StaticResource LabelDescriptionStyle}" />
+                                    </StackLayout>
+
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </StackLayout>
+
+            <!--EndRegion-->
+
+        </Grid>
+    </Grid>
+</ContentPage>
