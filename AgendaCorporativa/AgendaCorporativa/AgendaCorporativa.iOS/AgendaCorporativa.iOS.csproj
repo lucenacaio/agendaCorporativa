@@ -88,6 +88,7 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Gerenciadores\ChamarIOs.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeArquivoIOS.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeDownloadIOS.cs" />
     <Compile Include="Gerenciadores\IMEIIOS.cs" />
