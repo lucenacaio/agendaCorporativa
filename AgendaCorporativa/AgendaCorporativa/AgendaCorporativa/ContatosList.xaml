@@ -3,57 +3,45 @@
   <ContentPage.Content>
     <Grid RowSpacing="0" BackgroundColor="#004E9E">
       <Grid.RowDefinitions>
-        <RowDefinition Height="120" />
+        <RowDefinition Height="60" />
         <RowDefinition Height="14*" />
         <RowDefinition Height="2*" />
       </Grid.RowDefinitions>
-      <Grid.ColumnDefinitions>
-        <ColumnDefinition Width="*" />
-      </Grid.ColumnDefinitions>
 
+      <!--Indicador de Loading-->
       <ActivityIndicator Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="False" IsEnabled="True" x:Name="syncIndicator" />
 
-      <!--Cabecalho e campo de pesquisa-->
-      <Grid Grid.Row="0" Padding="10">
-        <Grid.RowDefinitions>
-          <RowDefinition Height="45"/>
-          <RowDefinition Height="45"/>
-        </Grid.RowDefinitions>
-        <Label Grid.Row="0"
-               HorizontalOptions="FillAndExpand"
-               HorizontalTextAlignment="Center"
-               VerticalTextAlignment="Center"
-               TextColor="#ffffff"
-               Text="Agenda Corporativa" 
-                FontSize="Medium"/>
-        
-        <Entry Grid.Row="1" BackgroundColor="#FFFFFF" 
-               x:Name="nomePesquisa"
-               HorizontalOptions="FillAndExpand"
-               Placeholder="Pesquisar" />
+      <!--Campo de pesquisa-->
+      <Entry Grid.Row="0"
+             BackgroundColor="#FFFFFF"
+             Margin="10"
+             x:Name="nomePesquisa"
+             HorizontalOptions="FillAndExpand"
+             TextColor="Black"
+             Placeholder="Pesquisar" />
 
-      </Grid>
-      
-      
       <!--Lista dos contatos-->
       <ListView x:Name="listaContatos"
-        Grid.Row="1" Grid.Column="0"
-        BackgroundColor="White" ItemSelected="OnSelected">
+                Grid.Row="1"
+                BackgroundColor="White"
+                ItemSelected="OnSelected">
         <ListView.ItemTemplate>
           <DataTemplate>
             <ViewCell>
               <ViewCell.ContextActions>
                 <MenuItem Clicked="OnComplete" Text="Complete" CommandParameter="{Binding .}" />
               </ViewCell.ContextActions>
-              <StackLayout HorizontalOptions="Start" VerticalOptions="Center" Padding="10,10">
-                  <Label Text="{Binding NomeCompleto}" 
-                         TextColor="#9E9E9E"
-                         FontSize="Medium"/>
+              <StackLayout HorizontalOptions="Start" VerticalOptions="Center" Padding="10">
+                <Label Text="{Binding NomeCompleto}"
+                       TextColor="#9E9E9E"
+                       FontSize="Medium"/>
               </StackLayout>
             </ViewCell>
           </DataTemplate>
         </ListView.ItemTemplate>
       </ListView>
+
+      <!--Botao de Sincronizar-->
       <StackLayout Grid.Row="2"
 					Grid.Column="0"
 					Padding="10,10,10,10"
@@ -64,7 +52,7 @@
                 FontSize="Medium"
                 VerticalOptions="Center"
                 TextColor="#FFFFFF"
-					      MinimumHeightRequest="30" 
+					      MinimumHeightRequest="30"
                 Clicked="OnSyncItems" />
 
       </StackLayout>

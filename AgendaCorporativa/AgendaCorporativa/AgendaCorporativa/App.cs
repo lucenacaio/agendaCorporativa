@@ -12,9 +12,12 @@ namespace AgendaCorporativa
 
         public App(Contratos.IGerenciadorDeDownload gerenciadorDeDownload)
         {
+            NavigationPage mainPage = new NavigationPage(new ContatosList(gerenciadorDeDownload));
+            mainPage.BarBackgroundColor = Color.FromHex("004E9E");
+            mainPage.BarTextColor = Color.White;
+
             // The root page of your application
-            MainPage = new NavigationPage(new ContatosList(gerenciadorDeDownload));
-            //MainPage = new DetalharContato();
+            MainPage = mainPage;
         }
 
         protected override void OnStart()
