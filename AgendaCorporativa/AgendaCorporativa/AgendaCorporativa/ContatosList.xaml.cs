@@ -8,6 +8,8 @@ using AgendaCorporativa.Modelos;
 using Xamarin.Forms;
 using AgendaCorporativa.Gerenciadores;
 using AgendaCorporativa.Contratos;
+using Plugin.Contacts.Abstractions;
+using Plugin.Contacts;
 
 namespace AgendaCorporativa
 {
@@ -20,18 +22,45 @@ namespace AgendaCorporativa
             InitializeComponent();
 
             gerenciadorDeContatos = new GerenciadorDeContatos(gerenciadorDeDownload);
-
-            //todo verificar se é melhor criar o botão dinamico ou deixar no xaml @mpleite1
-            //var syncButton = new Button
-            //{
-            //    Text = "Sincronizar Contatos",
-            //    HeightRequest = 30
-            //};
-            //syncButton.Clicked += OnSyncItems;
-
-            //botoesPainel.Children.Add(syncButton);
-
         }
+
+
+        private async Task chamarContatos()
+        {
+            var contatos = await carregarAgenda();
+            List<Contato> contatosLista = new List<Contato>();
+            
+            foreach (Contact contato in contatos)
+            {
+                Contato cont = new Contato();
+                cont.NomeFuncionario = contato.DisplayName;
+                contatosLista.Add(cont);
+            }
+        }
+
+        private async Task<List<Contact>> carregarAgenda()
+        {
+            List<Contact> contatos = null;
+            if (await CrossContacts.Current.RequestPermission())
+            {
+                CrossContacts.Current.PreferContactAggregation = false;//recommended
+                                                                       //run in background
+                await Task.Run(() =>
+                {
+                    if (CrossContacts.Current.Contacts == null)
+                        return;
+
+                    contatos = CrossContacts.Current.Contacts
+                                            .Where(c => !string.IsNullOrWhiteSpace(c.FirstName) && c.Phones.Count > 0)?.ToList();
+
+                    contatos = contatos.OrderBy(c => c.LastName).ToList();
+                });
+            }
+
+            return contatos;
+        }
+
+
 
         protected override async void OnAppearing()
         {
@@ -52,7 +81,7 @@ namespace AgendaCorporativa
             {
                 return;
             }
-         }
+        }
 
         public void OnSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -95,7 +124,8 @@ namespace AgendaCorporativa
 
         public async void OnSyncItems(object sender, EventArgs e)
         {
-            await AtualizarContatos(true, true);
+            //await AtualizarContatos(true, true);
+            await chamarContatos();
         }
 
         private async Task AtualizarContatos(bool showActivityIndicator, bool syncItems)
