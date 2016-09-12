@@ -81,7 +81,7 @@ namespace AgendaCorporativa.Gerenciadores
                 contato.IMEI = valores[0];
                 //Telefone
                 //TODO Atualizar codigo quando arquivo com DDD estiver pronto
-                contato.Telefones.Add(new Telefone { DDD = valores[1].Substring(0,2), Numero = valores[1] });
+                contato.Telefones.Add(new Telefone { DDD = valores[1].Substring(0,2), Numero = valores[1].Substring(2, valores[1].Length-2) });
                 //Nome
                 contato.NomeFuncionario = valores[2];
                 //Sobrenome

@@ -14,7 +14,7 @@ namespace AgendaCorporativa.Modelos
         public Contato()
         {
             Telefones = new List<Telefone>();
-			Emails = new List<EmailCorp>();
+            Emails = new List<string>();
         }
 
         /// <summary>
@@ -45,7 +45,7 @@ namespace AgendaCorporativa.Modelos
         /// <summary>
         /// Endereço do email coorporativo
         /// </summary>
-		public List<EmailCorp> Emails { get; set; }
+		public List<string> Emails { get; set; }
 
         /// <summary>
         /// Telefones do funcionario
@@ -66,9 +66,5 @@ namespace AgendaCorporativa.Modelos
         /// </summary>
         public string DDD { get; set; }
     }
-
-	public class EmailCorp
-	{ 
-		public String Endereco { get; set;}
-	}
 }
+

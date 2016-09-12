@@ -10,63 +10,57 @@ using Xamarin.Forms;
 
 namespace AgendaCorporativa
 {
-	public partial class DetalharContato : ContentPage
-	{
-		Contato _contato;
+    public partial class DetalharContato : ContentPage
+    {
+        Contato _contato;
 
 
-		public DetalharContato(Contato contato)
-		{
-			InitializeComponent();
+        public DetalharContato(Contato contato)
+        {
+            InitializeComponent();
 
-			_contato = contato;
+            _contato = contato;
 
-			LoadDados();
-			listaTelefones.SeparatorVisibility = Xamarin.Forms.SeparatorVisibility.Default;
-			listaTelefones.SeparatorColor = Color.FromHex("C8C7CC");
-		}
+            LoadDados();
+            listaTelefones.SeparatorVisibility = Xamarin.Forms.SeparatorVisibility.Default;
+            listaTelefones.SeparatorColor = Color.FromHex("C8C7CC");
+        }
 
-		public void OnSelected(object sender, SelectedItemChangedEventArgs e)
-		{
-			var telefone = e.SelectedItem as Telefone;
-			if (Device.OS != TargetPlatform.iOS && telefone != null)
-			{
-				DependencyService.Get<IChamar>().ChamarNumero(telefone.Numero);
-			}
-		}
+        public void OnSelected(object sender, SelectedItemChangedEventArgs e)
+        {
+            var telefone = e.SelectedItem as Telefone;
+            if (Device.OS != TargetPlatform.iOS && telefone != null)
+            {
+                DependencyService.Get<IChamar>().ChamarNumero(telefone.Numero);
+            }
+        }
 
-		/// <summary>
-		/// Carrega Nome e Empresa de contato e chama o carregamento de Telefones e emails
-		/// </summary>
-		void LoadDados()
-		{
-			nomeSobrenome.Text = _contato.NomeCompleto;
-			empresa.Text = _contato.NomeEmpresa;
-			LoadListaTelefones();
-			LoadListaEmails();
-		}
+        /// <summary>
+        /// Carrega Nome e Empresa de contato e chama o carregamento de Telefones e emails
+        /// </summary>
+        void LoadDados()
+        {
+            nomeSobrenome.Text = _contato.NomeCompleto;
+            empresa.Text = _contato.NomeEmpresa;
+            LoadListaTelefones();
+            LoadListaEmails();
+        }
 
-		/// <summary>
-		/// Carrega lista de telefones
-		/// </summary>
-		void LoadListaTelefones()
-		{
-			listaTelefones.ItemsSource = _contato.Telefones;
-		}
+        /// <summary>
+        /// Carrega lista de telefones
+        /// </summary>
+        void LoadListaTelefones()
+        {
+            listaTelefones.ItemsSource = _contato.Telefones;
+        }
 
-		/// <summary>
-		/// Carregar lista de emails
-		/// </summary>
-		void LoadListaEmails()
-		{
-			List<string> emails = new List<string>();
+        /// <summary>
+        /// Carregar lista de emails
+        /// </summary>
+        void LoadListaEmails()
+        {
+            listaEmails.ItemsSource = _contato.Emails;
+        }
 
-			foreach (EmailCorp email in _contato.Emails)
-			{
-				emails.Add(email.Endereco);
-				listaEmails.ItemsSource = emails;
-			}
-		}
-
-	}
+    }
 }

@@ -34,11 +34,10 @@ namespace AgendaCorporativa
             var contatos = await carregarAgenda();
             List<Contato> contatosLista = new List<Contato>();
 
-
             foreach (Contact contato in contatos)
             {
 				List<Telefone> telefones = new List<Telefone>();
-				List<EmailCorp> emails = new List<EmailCorp>();
+				List<string> emails = new List<string>();
 
 				foreach (Phone phone in contato.Phones) 
 				{
@@ -49,9 +48,7 @@ namespace AgendaCorporativa
 
 				foreach (Email email in contato.Emails)
 				{
-					EmailCorp emailCorp = new EmailCorp();
-					emailCorp.Endereco = email.Address;
-					emails.Add(emailCorp);
+					emails.Add(email.Address);
 				}
 
                 Contato cont = new Contato();
