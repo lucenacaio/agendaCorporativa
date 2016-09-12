@@ -9,7 +9,7 @@ using Xamarin.Forms;
 
 namespace AgendaCorporativa.Gerenciadores
 {
-    public class AutorizacaoDeAparelho
+    public class GerenciadorDeAutorizacao
     {
         public bool VarificarPermissao()
         {

@@ -17,8 +17,15 @@ using AgendaCorporativa.Droid.Gerenciadores;
 [assembly: Dependency(typeof(GerenciadorDeImeiDroid))]
 namespace AgendaCorporativa.Droid.Gerenciadores
 {
-    class GerenciadorDeImeiDroid : IGerenciadorDeImei
+    /// <summary>
+    /// Classe responsavel pelo tratamento do IMEI no sistema Android
+    /// </summary>
+    public class GerenciadorDeImeiDroid : IGerenciadorDeImei
     {
+        /// <summary>
+        /// Obtem o IMEI do aparelho Android
+        /// </summary>
+        /// <returns>Lista de IMEIs do Android</returns>
         public string[] ObtemImei()
         {
             var telephonyManager = (TelephonyManager)Forms.Context.GetSystemService(Context.TelephonyService);

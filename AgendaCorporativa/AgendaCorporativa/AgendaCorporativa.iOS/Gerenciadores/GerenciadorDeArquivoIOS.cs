@@ -9,6 +9,9 @@ using Xamarin.Forms;
 [assembly: Dependency(typeof(GerenciadorDeArquivoIOS))]
 namespace AgendaCorporativa.iOS.Gerenciadores
 {
+    /// <summary>
+    /// Classe responsavel pelo tratamento de arquivos no sistema iOS
+    /// </summary>
     public class GerenciadorDeArquivoIOS : IGerenciadorDeArquivo
     {
         /// <summary>

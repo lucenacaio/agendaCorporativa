@@ -6,10 +6,23 @@ using System.Threading.Tasks;
 
 namespace AgendaCorporativa.Contratos
 {
+    /// <summary>
+    /// Gerenciador de armazenamento de arquivos
+    /// </summary>
     public interface IGerenciadorDeArquivo
     {
-            void SalvarTexto(string filename, string text);
+        /// <summary>
+        /// Salva o texto em um arquivo
+        /// </summary>
+        /// <param name="nomeDoArquivo"></param>
+        /// <param name="texto"></param>
+        void SalvarTexto(string nomeDoArquivo, string texto);
 
-            string CarregarTexto(string filename);
+        /// <summary>
+        /// Carrega o texto de um arquivo
+        /// </summary>
+        /// <param name="nomeDoArquivo"></param>
+        /// <returns>Conteudo do arquivo</returns>
+        string CarregarTexto(string nomeDoArquivo);
     }
 }

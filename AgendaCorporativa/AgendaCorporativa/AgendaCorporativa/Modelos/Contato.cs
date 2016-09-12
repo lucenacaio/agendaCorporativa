@@ -54,17 +54,5 @@ namespace AgendaCorporativa.Modelos
 
     }
 
-    public class Telefone
-    {
-        /// <summary>
-        /// Número de telefone
-        /// </summary>
-        public string Numero { get; set; }
-
-        /// <summary>
-        /// DDD
-        /// </summary>
-        public string DDD { get; set; }
-    }
 }
 

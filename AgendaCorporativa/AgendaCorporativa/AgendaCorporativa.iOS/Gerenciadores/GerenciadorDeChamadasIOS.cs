@@ -9,11 +9,18 @@ using UIKit;
 using AgendaCorporativa.iOS.Gerenciadores;
 using Xamarin.Forms;
 
-[assembly: Dependency(typeof(ChamarIOs))]
+[assembly: Dependency(typeof(GerenciadorDeChamadasIOS))]
 namespace AgendaCorporativa.iOS.Gerenciadores
 {
-    class ChamarIOs : IChamar
+    /// <summary>
+    /// Classe responsavel pelo tratamento de chamadas no sistema iOS
+    /// </summary>
+    public class GerenciadorDeChamadasIOS : IGerenciadorDeChamadas
     {
+        /// <summary>
+        /// Faz a chamada telefônica do numero
+        /// </summary>
+        /// <param name="numero">Numero de telefone</param>
         public void ChamarNumero(string numero)
         {
             var url = new NSUrl("tel:" + numero);

@@ -13,10 +13,13 @@ using AgendaCorporativa.Contratos;
 using Xamarin.Forms;
 using AgendaCorporativa.Droid.Gerenciadores;
 
-[assembly: Dependency(typeof(ChamarDroid))]
+[assembly: Dependency(typeof(GerenciadorDeChamadasDroid))]
 namespace AgendaCorporativa.Droid.Gerenciadores
 {
-    class ChamarDroid : IChamar
+    /// <summary>
+    /// Classe responsavel pelo tratamento de chamadas no sistema Android
+    /// </summary>
+    public class GerenciadorDeChamadasDroid : IGerenciadorDeChamadas
     {
         public void ChamarNumero(string numero)
         {

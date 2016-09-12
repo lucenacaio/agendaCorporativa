@@ -31,7 +31,7 @@ namespace AgendaCorporativa
             var telefone = e.SelectedItem as Telefone;
             if (Device.OS != TargetPlatform.iOS && telefone != null)
             {
-                DependencyService.Get<IChamar>().ChamarNumero(telefone.Numero);
+                DependencyService.Get<IGerenciadorDeChamadas>().ChamarNumero(telefone.Numero);
             }
         }
 

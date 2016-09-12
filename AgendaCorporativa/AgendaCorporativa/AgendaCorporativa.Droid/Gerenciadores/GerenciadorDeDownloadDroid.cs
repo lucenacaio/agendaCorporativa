@@ -18,6 +18,9 @@ namespace AgendaCorporativa.Droid.Gerenciadores
 {
     public class GerenciadorDeDownloadDroid : IGerenciadorDeDownload
     {
+        /// <summary>
+        /// Classe responsavel pelo tratamento de downloads no sistema Android
+        /// </summary>
         public async Task<string> IniciarDownload(string url)
         {
             var webClient = new WebClient();
