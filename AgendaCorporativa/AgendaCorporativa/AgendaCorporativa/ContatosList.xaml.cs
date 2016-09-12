@@ -34,12 +34,34 @@ namespace AgendaCorporativa
             var contatos = await carregarAgenda();
             List<Contato> contatosLista = new List<Contato>();
 
+
             foreach (Contact contato in contatos)
             {
+				List<Telefone> telefones = new List<Telefone>();
+				List<EmailCorp> emails = new List<EmailCorp>();
+
+				foreach (Phone phone in contato.Phones) 
+				{
+					Telefone telefone = new Telefone();
+					telefone.Numero = phone.Number;
+					telefones.Add(telefone);
+				}
+
+				foreach (Email email in contato.Emails)
+				{
+					EmailCorp emailCorp = new EmailCorp();
+					emailCorp.Endereco = email.Address;
+					emails.Add(emailCorp);
+				}
+
                 Contato cont = new Contato();
                 cont.NomeFuncionario = contato.DisplayName;
+				cont.Telefones = telefones;
+				cont.Emails = emails;
+
                 contatosLista.Add(cont);
             }
+			listaContatos.ItemsSource = contatosLista;
         }
 
         private async Task<List<Contact>> carregarAgenda()
@@ -57,7 +79,7 @@ namespace AgendaCorporativa
                     var contacts = CrossContacts.Current.Contacts
                                             .Where(c => !string.IsNullOrWhiteSpace(c.FirstName) && c.Phones.Count > 0);
 
-                    contatos = contacts.OrderBy(c => c.LastName).ToList();
+                    contatos = contacts.OrderBy(c => c.FirstName).ToList();
                 });
             }
 
