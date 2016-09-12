@@ -54,10 +54,10 @@ namespace AgendaCorporativa
                     if (CrossContacts.Current.Contacts == null)
                         return;
 
-                    contatos = CrossContacts.Current.Contacts
-                                            .Where(c => !string.IsNullOrWhiteSpace(c.FirstName) && c.Phones.Count > 0)?.ToList();
+                    var contacts = CrossContacts.Current.Contacts
+                                            .Where(c => !string.IsNullOrWhiteSpace(c.FirstName) && c.Phones.Count > 0);
 
-                    contatos = contatos.OrderBy(c => c.LastName).ToList();
+                    contatos = contacts.OrderBy(c => c.LastName).ToList();
                 });
             }
 
