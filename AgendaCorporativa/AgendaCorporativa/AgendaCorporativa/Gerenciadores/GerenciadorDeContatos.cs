@@ -26,11 +26,20 @@ namespace AgendaCorporativa.Gerenciadores
         }
 
         /// <summary>
+        /// Retorna todos os contatos
+        /// </summary>
+        /// <returns>Lista de contatos</returns>
+        public List<Contato> PesquisaContatos()
+        {
+            return PesquisaContatos("");
+        }
+
+        /// <summary>
         /// Busca os contatos
         /// </summary>
         /// <param name="termo">Termo da pesquisa(se for vazio, retorna todos)</param>
         /// <returns>Lista de contatos corporativos</returns>
-        public async Task<List<Contato>> PesquisaContatos(string termo)
+        public List<Contato> PesquisaContatos(string termo)
         {
             string conteudo = "";
             try
@@ -56,7 +65,7 @@ namespace AgendaCorporativa.Gerenciadores
         /// <summary>
         /// Sincroniza os contatos(baixa o arquivo CSV e atualizar os contatos na agenda do usuário)
         /// </summary>
-        public async void SincronizarContatos()
+        public async Task SincronizarContatos()
         {
             string conteudo = await gerenciadorDeDownload.IniciarDownload(UrlDoArquivo);
 

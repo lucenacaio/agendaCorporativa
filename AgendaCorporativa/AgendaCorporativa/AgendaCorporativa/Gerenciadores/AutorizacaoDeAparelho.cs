@@ -11,14 +11,13 @@ namespace AgendaCorporativa.Gerenciadores
 {
     public class AutorizacaoDeAparelho
     {
-
-        public async Task<bool> VarificarPermissao()
+        public bool VarificarPermissao()
         {
             bool result = false;
 
             GerenciadorDeContatos gerenciadorDeContatos = new GerenciadorDeContatos(DependencyService.Get<IGerenciadorDeDownload>());
-            string[] listaDeImeiDoAparelho = DependencyService.Get<IIMEIDoAparelho>().GetImei();
-            List<Contato> contatos = await gerenciadorDeContatos.PesquisaContatos("");
+            string[] listaDeImeiDoAparelho = DependencyService.Get<IGerenciadorDeImei>().ObtemImei();
+            List<Contato> contatos = gerenciadorDeContatos.PesquisaContatos();
 
             foreach (string imeiUsuario in listaDeImeiDoAparelho)
             {

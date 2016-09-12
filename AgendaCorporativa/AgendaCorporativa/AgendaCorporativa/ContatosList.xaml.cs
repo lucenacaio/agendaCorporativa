@@ -24,9 +24,9 @@ namespace AgendaCorporativa
             gerenciadorDeContatos = new GerenciadorDeContatos(gerenciadorDeDownload);
         }
 
-        private async void Pesquisa_OnTextChanged(object sender, TextChangedEventArgs e)
+        private void Pesquisa_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            listaContatos.ItemsSource = await gerenciadorDeContatos.PesquisaContatos(e.NewTextValue);
+            listaContatos.ItemsSource = gerenciadorDeContatos.PesquisaContatos(e.NewTextValue);
         }
 
         private async Task chamarContatos()
@@ -130,9 +130,9 @@ namespace AgendaCorporativa
 
         private async Task AtualizarContatos(bool showActivityIndicator, bool syncItems)
         {
-            gerenciadorDeContatos.SincronizarContatos();
+            await gerenciadorDeContatos.SincronizarContatos();
 
-            listaContatos.ItemsSource = await gerenciadorDeContatos.PesquisaContatos("");
+            listaContatos.ItemsSource =  gerenciadorDeContatos.PesquisaContatos();
         }
     }
 }

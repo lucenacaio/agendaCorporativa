@@ -14,12 +14,12 @@ using Xamarin.Forms;
 using Android.Telephony;
 using AgendaCorporativa.Droid.Gerenciadores;
 
-[assembly: Dependency(typeof(IMEIDroid))]
+[assembly: Dependency(typeof(GerenciadorDeImeiDroid))]
 namespace AgendaCorporativa.Droid.Gerenciadores
 {
-    class IMEIDroid : IIMEIDoAparelho
+    class GerenciadorDeImeiDroid : IGerenciadorDeImei
     {
-        public string[] GetImei()
+        public string[] ObtemImei()
         {
             var telephonyManager = (TelephonyManager)Forms.Context.GetSystemService(Context.TelephonyService);
 

@@ -9,10 +9,13 @@ using Foundation;
 using Xamarin.Forms;
 using AgendaCorporativa.iOS.Gerenciadores;
 
-[assembly: Dependency(typeof(IMEIIOS))]
+[assembly: Dependency(typeof(GerenciadorDeImeiIOS))]
 namespace AgendaCorporativa.iOS.Gerenciadores
 {
-    class IMEIIOS : IIMEIDoAparelho
+    /// <summary>
+    /// Classe responsavel em tratar o IMEI do aparelho com IOS
+    /// </summary>
+    public class GerenciadorDeImeiIOS : IGerenciadorDeImei
     {
         #region DLLs import
 
@@ -30,9 +33,13 @@ namespace AgendaCorporativa.iOS.Gerenciadores
 
         #endregion
 
-        public string[] GetImei()
+        /// <summary>
+        /// Obtem os IMEIs do aparelho.
+        /// </summary>
+        /// <remarks>Caso o aparelho tenha mais de um slot de chip, retorna mais de um EMEI.</remarks>
+        /// <returns>Lista de IMEI</returns>
+        public string[] ObtemImei()
         {
-            
             string[] serial = new string[1];
             uint platformExpert = IOServiceGetMatchingService(0, IOServiceMatching("IOPlatformExpertDevice"));
             if (platformExpert != 0)

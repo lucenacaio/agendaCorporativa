@@ -42,7 +42,7 @@
     <Compile Include="Contratos\IChamar.cs" />
     <Compile Include="Contratos\IGerenciadorDeArquivo.cs" />
     <Compile Include="Contratos\IGerenciadorDeDownload.cs" />
-    <Compile Include="Contratos\IIMEIDoAparelho.cs" />
+    <Compile Include="Contratos\IGerenciadorDeImei.cs" />
     <Compile Include="DetalharContato.xaml.cs">
       <DependentUpon>DetalharContato.xaml</DependentUpon>
     </Compile>
