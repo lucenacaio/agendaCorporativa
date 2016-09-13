@@ -15,12 +15,13 @@ namespace AgendaCorporativa.Modelos
         {
             Telefones = new List<Telefone>();
             Emails = new List<string>();
+            IMEIs = new List<string>();
         }
 
         /// <summary>
         /// Código do celular do usuário
         /// </summary>
-        public string IMEI { get; set; }
+        public List<string> IMEIs { get; set; }
 
         /// <summary>
         /// Nome 

@@ -11,20 +11,19 @@ namespace AgendaCorporativa.Gerenciadores
 {
     public class GerenciadorDeAutorizacao
     {
-        public bool VarificarPermissao()
+        private readonly string UrlDoArquivo = "http://www.codeandlions.com/csv_agenda.csv";
+
+        public bool VerificarPermissao()
         {
-            bool result = false;
+            var gerenciadorDeContatos = new GerenciadorDeContatos(DependencyService.Get<IGerenciadorDeDownload>());
 
-            GerenciadorDeContatos gerenciadorDeContatos = new GerenciadorDeContatos(DependencyService.Get<IGerenciadorDeDownload>());
+            List<string> imeisDoArquivo = gerenciadorDeContatos.ObtemImeis();
+
             string[] listaDeImeiDoAparelho = DependencyService.Get<IGerenciadorDeImei>().ObtemImei();
-            List<Contato> contatos = gerenciadorDeContatos.PesquisaContatos();
 
-            foreach (string imeiUsuario in listaDeImeiDoAparelho)
-            {
-                result = contatos.Exists(x => string.Equals(x.IMEI, imeiUsuario));
-                if (result)
-                    break;
-            }
+            bool result = (from imei in listaDeImeiDoAparelho
+                           where imeisDoArquivo.Contains(imei)
+                           select imei).Count() > 0;
 
             return result;
         }

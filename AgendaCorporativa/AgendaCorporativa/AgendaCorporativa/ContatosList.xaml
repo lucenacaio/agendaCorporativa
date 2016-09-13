@@ -32,7 +32,9 @@
                     <StackLayout HorizontalOptions="Start" VerticalOptions="Center" Padding="10">
                       <Label Text="{Binding NomeCompleto}"
                              TextColor="#9E9E9E"
+                             LineBreakMode="TailTruncation"
                              FontSize="Medium"/>
+                      
                     </StackLayout>
                   </ViewCell>
                 </DataTemplate>
