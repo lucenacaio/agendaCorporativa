@@ -29,10 +29,12 @@ namespace AgendaCorporativa
         public void OnSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var telefone = e.SelectedItem as Telefone;
-            if (Device.OS != TargetPlatform.iOS && telefone != null)
-            {
-                DependencyService.Get<IGerenciadorDeChamadas>().ChamarNumero(telefone.Numero);
-            }
+            Device.OpenUri(new Uri(String.Format("tel:{0}", telefone.DDD + telefone.Numero)));
+            //var telefone = e.SelectedItem as Telefone;
+            //if (Device.OS != TargetPlatform.iOS && telefone != null)
+            //{
+            //    DependencyService.Get<IGerenciadorDeChamadas>().ChamarNumero(telefone.Numero);
+            //}
         }
 
         /// <summary>
