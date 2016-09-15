@@ -39,6 +39,7 @@
     <Compile Include="ContatosList.xaml.cs">
       <DependentUpon>ContatosList.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Contratos\IGerenciadorDeAgenda.cs" />
     <Compile Include="Contratos\IGerenciadorDeArquivo.cs" />
     <Compile Include="Contratos\IGerenciadorDeDownload.cs" />
     <Compile Include="Contratos\IGerenciadorDeImei.cs" />
