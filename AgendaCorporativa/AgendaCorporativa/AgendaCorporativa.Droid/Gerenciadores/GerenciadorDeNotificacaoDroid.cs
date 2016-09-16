@@ -14,6 +14,8 @@ using Xamarin.Forms;
 using Android.Support.V4.App;
 using Android.Graphics;
 using AgendaCorporativa.Droid.Gerenciadores;
+using AgendaCorporativa.Modelos;
+using AgendaCorporativa.Extentions;
 
 [assembly: Dependency(typeof(GerenciadorDeNotificacaoDroid))]
 namespace AgendaCorporativa.Droid.Gerenciadores
@@ -28,14 +30,29 @@ namespace AgendaCorporativa.Droid.Gerenciadores
 
             PendingIntent pendingIntent = PendingIntent.GetBroadcast(Forms.Context, 0, alarmIntent, PendingIntentFlags.UpdateCurrent);
             AlarmManager alarmManager = (AlarmManager)Forms.Context.GetSystemService(Context.AlarmService);
-            var ticksSystem = SystemClock.ElapsedRealtime();
 
-            var ticks = dateTime.Ticks - DateTime.Now.Ticks;
-            TimeSpan ts = new TimeSpan(ticks);
+            var milisegundosDoSistema = SystemClock.ElapsedRealtime();
+            
+            //pega o espaço de tempo entre hoje e o dia da notificação
+            TimeSpan ts = new TimeSpan(dateTime.Ticks - DateTime.Now.Ticks);
+            
+            alarmManager.Set(AlarmType.ElapsedRealtime, milisegundosDoSistema + Convert.ToInt64(ts.TotalMilliseconds), pendingIntent);
 
+        }
 
-            //TODO: For demo set after 5 seconds.
-            alarmManager.Set(AlarmType.ElapsedRealtime, ticksSystem+Convert.ToInt64(ts.TotalMilliseconds), pendingIntent);
+        public void AgendaNotificacaoPeriodica(Periodo periodo, string titulo, string conteudo)
+        {
+            Intent alarmIntent = new Intent(Forms.Context, typeof(AlarmReceiver));
+            alarmIntent.PutExtra("titulo", titulo);
+            alarmIntent.PutExtra("mensagem", conteudo);
+
+            PendingIntent pendingIntent = PendingIntent.GetBroadcast(Forms.Context, 0, alarmIntent, PendingIntentFlags.UpdateCurrent);
+            AlarmManager alarmManager = (AlarmManager)Forms.Context.GetSystemService(Context.AlarmService);
+
+            long intervaloEmMilisegundos = Convert.ToInt64(periodo.ToMiliseconds());
+            var dataInicialEmMilisegundos = SystemClock.ElapsedRealtime() + intervaloEmMilisegundos;
+
+            alarmManager.SetRepeating(AlarmType.ElapsedRealtime, dataInicialEmMilisegundos, intervaloEmMilisegundos, pendingIntent);
 
         }
     }

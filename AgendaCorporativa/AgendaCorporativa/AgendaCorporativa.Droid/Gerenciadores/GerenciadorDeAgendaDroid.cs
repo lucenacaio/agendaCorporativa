@@ -22,6 +22,7 @@ namespace AgendaCorporativa.Droid.Gerenciadores
     {
 
         public GerenciadorDeAgendaDroid() { }
+
         public void AtualizarAgendaDoAparelho(List<Contato> contatos)
         {
             throw new NotImplementedException();

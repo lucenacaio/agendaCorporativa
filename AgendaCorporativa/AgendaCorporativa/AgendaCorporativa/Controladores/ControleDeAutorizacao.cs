@@ -29,7 +29,7 @@ namespace AgendaCorporativa.Controladores
                            select imei).Count() > 0;
 
             if(!result)
-                throw new ExcecaoDeAutenticacao();
+                throw new ExcecaoDeAutenticacao("Aparelho não autorizado.\n Imei: " + listaDeImeiDoAparelho[0]);
         }
     }
 }

@@ -52,8 +52,10 @@
     <Compile Include="Controladores\ControleArquivo.cs" />
     <Compile Include="Excecoes\ExcecaoDeAutenticacao.cs" />
     <Compile Include="Extentions\ListExtentions.cs" />
+    <Compile Include="Extentions\PeriodoExtentions.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeContatos.cs" />
     <Compile Include="Modelos\Contato.cs" />
+    <Compile Include="Modelos\Periodo.cs" />
     <Compile Include="Modelos\Telefone.cs" />
     <Compile Include="PaginaDeErro.xaml.cs">
       <DependentUpon>PaginaDeErro.xaml</DependentUpon>
