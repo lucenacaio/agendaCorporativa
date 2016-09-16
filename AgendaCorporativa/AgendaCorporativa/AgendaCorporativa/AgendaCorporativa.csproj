@@ -53,7 +53,6 @@
     <Compile Include="Excecoes\ExcecaoDeAutenticacao.cs" />
     <Compile Include="Extentions\ListExtentions.cs" />
     <Compile Include="Extentions\PeriodoExtentions.cs" />
-    <Compile Include="Gerenciadores\GerenciadorDeAutorizacao.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeContatos.cs" />
     <Compile Include="Modelos\Contato.cs" />
     <Compile Include="Modelos\Periodo.cs" />
