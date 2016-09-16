@@ -15,7 +15,7 @@ namespace Stefanini.Framework.Extensoes
         /// <returns>Apenas os digitos</returns>
         public static string ApenasDigitos(this string texto)
         {
-            return Regex.Match(texto, @"\d+").Value;
+            return String.Join("", System.Text.RegularExpressions.Regex.Split(texto, @"[^\d]"));
         }
     }
 }

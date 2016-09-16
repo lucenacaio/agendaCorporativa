@@ -155,6 +155,14 @@
     <None Include="Properties\AndroidManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\..\Stefanini.Framework\Stefanini.Framework.csproj">
+      <Project>{DBB4A640-0F76-42C7-A1BB-4B1BF2B132F7}</Project>
+      <Name>Stefanini.Framework</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\Stefanini.Xamarin\Stefanini.Xamarin.csproj">
+      <Project>{DDE12CB8-441B-4B2C-8A6F-9BA85D068A5C}</Project>
+      <Name>Stefanini.Xamarin</Name>
+    </ProjectReference>
     <ProjectReference Include="..\AgendaCorporativa\AgendaCorporativa.csproj">
       <Project>{BF37B53F-75F4-4790-912E-C26575BD21C9}</Project>
       <Name>AgendaCorporativa</Name>

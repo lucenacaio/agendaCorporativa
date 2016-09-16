@@ -9,6 +9,8 @@ using AddressBook;
 using Foundation;
 using Stefanini.Framework.Extensoes;
 using AgendaCorporativa.Modelos;
+using Contacts;
+using System.Linq;
 
 [assembly: Dependency(typeof(GerenciadorDeAgendaIOS))]
 namespace AgendaCorporativa.iOS.Gerenciadores
@@ -22,6 +24,7 @@ namespace AgendaCorporativa.iOS.Gerenciadores
         /// Agenda Local
         /// </summary>
         private ABAddressBook agenda = null;
+        public const int maxDigitos = 8;
 
         /// <summary>
         /// Construtor de nova instância da classe <see cref="GerenciadorDeAgendaIOS"/>.
@@ -30,7 +33,7 @@ namespace AgendaCorporativa.iOS.Gerenciadores
         {
             NSError error;
             this.agenda = ABAddressBook.Create(out error);
-            if(error != null)
+            if (error != null)
             {
                 Console.WriteLine("Erro ao iniciar a agenda Local");
             }
@@ -40,7 +43,8 @@ namespace AgendaCorporativa.iOS.Gerenciadores
             // if the app was not authorized then we need to ask permission
             if (ABAddressBook.GetAuthorizationStatus() != ABAuthorizationStatus.Authorized)
             {
-                agenda.RequestAccess(delegate (bool granted, NSError error) {
+                agenda.RequestAccess(delegate (bool granted, NSError error)
+                {
                     if (error != null)
                     {
                         Console.WriteLine("Erro ao verificar a permissão de acesso a agenda local.");
@@ -66,52 +70,80 @@ namespace AgendaCorporativa.iOS.Gerenciadores
             if (agenda.GetPeople().Length == 0)
             {
                 Console.WriteLine("O Aparelho não possui contatos.");
-            }else
+            }
+            else
             {
+                //Remove os contatos existentes
+                RemoveContatosExistentes(contatos);
 
-                foreach(Contato contatoArquivo in contatos)
+                //Cadastra os contatos do arquivo
+                CadastraContatos(contatos);
+            }
+        }
+
+        private void CadastraContatos(List<Contato> contatos)
+        {
+            foreach (Contato contatoArquivo in contatos)
+            {
+                var novoContato = new ABPerson();
+                novoContato.FirstName = contatoArquivo.NomeFuncionario;
+                novoContato.LastName = contatoArquivo.SobrenomeFuncionario;
+
+                var fones = new ABMutableStringMultiValue();
+
+                foreach (Telefone telefone in contatoArquivo.Telefones)
                 {
-                    bool existe = false;
-                    foreach (Telefone telefoneArquivo in contatoArquivo.Telefones)
-                    {
-                        foreach (ABPerson contatoAgenda in agenda.GetPeople())
-                        {
-                            //Console.WriteLine("Nome: " + contatoAgenda.FirstName);
-                            foreach (ABMultiValueEntry<String> telefoneAgenda in contatoAgenda.GetPhones())
-                            {
-                                if (telefoneArquivo.Numero.ApenasDigitos() == telefoneAgenda.Value.ApenasDigitos())
-                                {
-                                    existe = true;
-                                    break;
-                                }
-                                
-                            }//fim do foreach dos telefones da Agenda
-                            if (existe)
-                            {
-                                break;
-                            }
+                    fones.Add(telefone.DDD + telefone.Numero, ABPersonPhoneLabel.Main);
+                }
 
-                        }//fim do foreach dos contatos da Agenda
-                        if (existe)
-                        {
-                            break;
-                        }
-                    }//fim do foreach dos telefones do Arquivo
+                novoContato.SetPhones(fones);
 
-                    if (existe)
-                    {
-                        Console.WriteLine("CONTATO: " + contatoArquivo.NomeCompleto + " encontrado, atualizando dados.");
-                    }
-                    else
-                    {
-                        Console.WriteLine("CONTATO: " + contatoArquivo.NomeCompleto + " INEXISTENTE, CRIANDO NOVO.");
-                    }
+                agenda.Add(novoContato);
+                agenda.Save();
+            }
+        }
 
-                }//fim do foreach dos contatos do Arquivo
-                
+        private void RemoveContatosExistentes(List<Contato> contatos)
+        {
+            var telefonesDoArquivo = contatos.SelectMany(l => l.Telefones).ToList();
+
+            List<ABPerson> contatosExistente =
+                (from person in agenda.GetPeople()
+                 where ((from phone in person.GetPhones()
+                         where (telefonesDoArquivo.Exists(t => OitoDitigos(t.Numero) == OitoDitigos(phone.Value)))
+                         select phone).Count() > 0)
+
+                 select person).ToList();
+
+            //Remove Contatos Existentes
+            foreach (var contato in contatosExistente)
+            {
+                agenda.Remove(contato);
+                agenda.Save();
+            }
+        }
+        
+
+        private bool DeletarContato()
+        {
+            var predicate = CNContact.GetPredicateForContacts("Appleseed");
+
+            return false;
+        }
+        /// <summary>
+        /// Método responsável por retornar apenas os últimos 8 dígitos do número
+        /// </summary>
+        /// <param name="num"></param>
+        /// <returns></returns>
+        private String OitoDitigos(String num)
+        {
+            String numero = num.ApenasDigitos();
+            if (numero.Length < 8)
+            {
+                return "";
             }
 
-            
+            return numero.Substring(numero.Length - maxDigitos);
         }
     }
 }
