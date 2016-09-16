@@ -1,11 +1,14 @@
 ﻿using AgendaCorporativa.Contratos;
+using AgendaCorporativa.iOS.Gerenciadores;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using Xamarin.Forms;
 
+[assembly: Dependency(typeof(GerenciadorDeDownloadIOS))]
 namespace AgendaCorporativa.iOS.Gerenciadores
 {
     /// <summary>
@@ -17,7 +20,7 @@ namespace AgendaCorporativa.iOS.Gerenciadores
         /// Inicia o download no aparelho iOS
         /// </summary>
         /// <param name="url">Endereco do arquivo</param>
-        public async Task<string> IniciarDownload(string url)
+        public async Task<string> BaixaConteudoArquivo(string url)
         {
             var webClient = new WebClient();
 

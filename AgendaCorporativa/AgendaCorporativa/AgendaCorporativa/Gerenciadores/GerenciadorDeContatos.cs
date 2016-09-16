@@ -79,7 +79,7 @@ namespace AgendaCorporativa.Gerenciadores
         /// </summary>
         public async Task SincronizarContatos()
         {
-            string conteudo = await gerenciadorDeDownload.IniciarDownload(UrlDoArquivo);
+            string conteudo = await gerenciadorDeDownload.BaixaConteudoArquivo(UrlDoArquivo);
 
             DependencyService.Get<IGerenciadorDeArquivo>().SalvarTexto(NomeArquivoLocal, conteudo);
 
