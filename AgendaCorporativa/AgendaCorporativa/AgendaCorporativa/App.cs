@@ -22,6 +22,11 @@ namespace AgendaCorporativa
 
                 // The root page of your application
                 MainPage = InicializaPagina(new ContatosList());
+
+                //Agenda para que toda semana exibe uma notificacao de atualizar a agenda.
+                DependencyService
+                    .Get<IGerenciadorDeNotificacao>()
+                    .AgendaNotificacaoPeriodica(Modelos.Periodo.Semana, "Agenda Coorporativa", "Mantenha sua agenda atualizada!");
             }
             catch (ExcecaoDeAutenticacao erro)
             {
@@ -35,9 +40,6 @@ namespace AgendaCorporativa
             // The root page of your application
             //MainPage = mainPage;
 
-            //DependencyService
-            //    .Get<IGerenciadorDeNotificacao>()
-            //    .AgendaNotificacao(DateTime.Now.AddDays(7), "Agenda Coorporativa", "Mantenha sua agenda atualizada!");
         }
 
         private NavigationPage InicializaPagina(ContentPage pagina)
