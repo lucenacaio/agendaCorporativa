@@ -58,7 +58,8 @@ namespace AgendaCorporativa.Controladores
         /// </summary>
         public static void DeletarArquivo()
         {
-            //TODO
+            var gerenciadorArquivo = DependencyService.Get<IGerenciadorDeArquivo>();
+            gerenciadorArquivo.DeletarArquivo(Resources.NomeArquivoLocal);
         }
     }
 }

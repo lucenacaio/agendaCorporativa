@@ -45,5 +45,20 @@ namespace AgendaCorporativa.Droid.Gerenciadores
             var filePath = Path.Combine(documentsPath, nomeDoArquivo);
             File.WriteAllText(filePath, texto);
         }
+
+        /// <summary>
+        /// Deleta o arquivo com o nome passado
+        /// </summary>
+        /// <param name="nomeDoArquivo">Nome do arquivo a ser deletado</param>
+        public void DeletarArquivo(string nomeDoArquivo)
+        {
+            var documentsPath = System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal);
+            var filePath = Path.Combine(documentsPath, nomeDoArquivo);
+
+            if (File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+        }
     }
 }
