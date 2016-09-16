@@ -13,6 +13,7 @@ using AgendaCorporativa.Contratos;
 using Plugin.Contacts.Abstractions;
 using AgendaCorporativa.Droid.Gerenciadores;
 using Xamarin.Forms;
+using AgendaCorporativa.Modelos;
 
 [assembly: Dependency(typeof(GerenciadorDeAgendaDroid))]
 namespace AgendaCorporativa.Droid.Gerenciadores
@@ -21,7 +22,7 @@ namespace AgendaCorporativa.Droid.Gerenciadores
     {
 
         public GerenciadorDeAgendaDroid() { }
-        public void AtualizarAgendaDoAparelho(List<Contact> contatos)
+        public void AtualizarAgendaDoAparelho(List<Contato> contatos)
         {
             throw new NotImplementedException();
         }

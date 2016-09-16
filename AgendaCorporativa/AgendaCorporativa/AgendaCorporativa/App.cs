@@ -21,7 +21,7 @@ namespace AgendaCorporativa
                 ControleDeAutorizacao.Autorizar();
 
                 // The root page of your application
-                MainPage = InicializaPagina(new ContatosList(gerenciadorDeDownload));
+                MainPage = InicializaPagina(new ContatosList());
             }
             catch (ExcecaoDeAutenticacao erro)
             {
