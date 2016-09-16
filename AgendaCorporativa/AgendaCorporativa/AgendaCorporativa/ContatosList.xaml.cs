@@ -65,9 +65,10 @@ namespace AgendaCorporativa
                 listaContatos.ItemsSource = Contatos;
 
                 //Carrega os contatos da Agenda
-                List<Contact> contatosDoAparelho = await GerenciadorDeAgenda.CarregaAgendaDoAparelho();
+                //List<Contact> contatosDoAparelho = await GerenciadorDeAgenda.CarregaAgendaDoAparelho();
 
                 //TODO - Atualizar a agenda do aparelho.
+                DependencyService.Get<IGerenciadorDeAgenda>().AtualizarAgendaDoAparelho(Contatos);
             }
             catch (Exception ex)
             {
