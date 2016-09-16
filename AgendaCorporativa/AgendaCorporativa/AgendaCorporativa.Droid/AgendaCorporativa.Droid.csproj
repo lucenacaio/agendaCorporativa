@@ -129,6 +129,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gerenciadores\AlertaDialogDroid.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeAgendaDroid.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeArquivoDroid.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeDownloadDroid.cs" />

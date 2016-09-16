@@ -40,13 +40,17 @@
       <DependentUpon>ContatosList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contratos\IGerenciadorDeAgenda.cs" />
+    <Compile Include="Contratos\IAlerta.cs" />
     <Compile Include="Contratos\IGerenciadorDeArquivo.cs" />
     <Compile Include="Contratos\IGerenciadorDeDownload.cs" />
     <Compile Include="Contratos\IGerenciadorDeImei.cs" />
     <Compile Include="Contratos\IGerenciadorDeNotificacao.cs" />
+    <Compile Include="Controladores\ControleDeAutorizacao.cs" />
     <Compile Include="DetalharContato.xaml.cs">
       <DependentUpon>DetalharContato.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Controladores\ControleArquivo.cs" />
+    <Compile Include="Excecoes\ExcecaoDeAutenticacao.cs" />
     <Compile Include="Extentions\ListExtentions.cs" />
     <Compile Include="Extentions\PeriodoExtentions.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeAutorizacao.cs" />
@@ -54,7 +58,15 @@
     <Compile Include="Modelos\Contato.cs" />
     <Compile Include="Modelos\Periodo.cs" />
     <Compile Include="Modelos\Telefone.cs" />
+    <Compile Include="PaginaDeErro.xaml.cs">
+      <DependentUpon>PaginaDeErro.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="GettingStarted.Xamarin" />
@@ -66,6 +78,10 @@
     <EmbeddedResource Include="ContatosList.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
@@ -105,6 +121,12 @@
       <Project>{DDE12CB8-441B-4B2C-8A6F-9BA85D068A5C}</Project>
       <Name>Stefanini.Xamarin</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="PaginaDeErro.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\Portable\$(TargetFrameworkVersion)\Microsoft.Portable.CSharp.targets" />
   <Import Project="..\..\packages\Xamarin.Forms.2.3.1.114\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets" Condition="Exists('..\..\packages\Xamarin.Forms.2.3.1.114\build\portable-win+net45+wp80+win81+wpa81+MonoAndroid10+MonoTouch10+Xamarin.iOS10\Xamarin.Forms.targets')" />

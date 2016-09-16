@@ -20,7 +20,7 @@ namespace AgendaCorporativa.iOS.Gerenciadores
         /// Inicia o download no aparelho iOS
         /// </summary>
         /// <param name="url">Endereco do arquivo</param>
-        public async Task<string> IniciarDownload(string url)
+        public async Task<string> BaixaConteudoArquivo(string url)
         {
             var webClient = new WebClient();
 

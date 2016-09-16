@@ -13,8 +13,8 @@ using AgendaCorporativa.Contratos;
 using System.Net;
 using System.IO;
 using System.Threading.Tasks;
-using Xamarin.Forms;
 using AgendaCorporativa.Droid.Gerenciadores;
+using Xamarin.Forms;
 
 [assembly: Dependency(typeof(GerenciadorDeDownloadDroid))]
 namespace AgendaCorporativa.Droid.Gerenciadores
@@ -24,7 +24,7 @@ namespace AgendaCorporativa.Droid.Gerenciadores
         /// <summary>
         /// Classe responsavel pelo tratamento de downloads no sistema Android
         /// </summary>
-        public async Task<string> IniciarDownload(string url)
+        public async Task<string> BaixaConteudoArquivo(string url)
         {
             var webClient = new WebClient();
 
