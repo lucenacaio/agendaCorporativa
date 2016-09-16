@@ -28,14 +28,26 @@ namespace AgendaCorporativa.Gerenciadores
         }
 
         /// <summary>
-        /// Obtem a lista de Imeis para autenticação
+        /// Obtem a lista de Imeis do arquivo
         /// </summary>
         /// <returns></returns>
         public List<string> ObtemImeis()
         {
-            string conteudo = BaixaArquivo();
+            string conteudo = CarregaConteudoDoArquivo();
 
             return MontaListaImeis(conteudo);
+        }
+
+
+        /// <summary>
+        /// Obtem contatos que estão no arquivo.
+        /// </summary>
+        /// <returns></returns>
+        public List<Contato> ObtemContatosDoArquivo()
+        {
+            string conteudo = CarregaConteudoDoArquivo();
+
+            return ConverteParaLista(conteudo).OrderBy(x=>x.NomeFuncionario).ToList();
         }
 
         /// <summary>
@@ -43,23 +55,21 @@ namespace AgendaCorporativa.Gerenciadores
         /// </summary>
         /// <param name="termo">Termo da pesquisa(se for vazio, retorna todos)</param>
         /// <returns>Lista de contatos corporativos</returns>
-        public List<Contato> PesquisaContatos(string termo = "")
-        {
-            string conteudo = BaixaArquivo();
+        //public List<Contato> PesquisaContatos(string termo = "")
+        //{
+        //    List<Contato> resultadoDePesquisa = new List<Contato>();
+        //    List<Contato> contatos = ConverteParaLista(conteudo);
 
-            List<Contato> resultadoDePesquisa = new List<Contato>();
-            List<Contato> contatos = ConverteParaLista(conteudo);
+        //    //Busca pelo termo nos contatos e ordenado por nome.
+        //    resultadoDePesquisa = (from contato in contatos
+        //                           where contato.NomeCompleto.ToUpper().Contains(termo.ToUpper())
+        //                           orderby contato.NomeCompleto
+        //                           select contato)?.ToList();
 
-            //Busca pelo termo nos contatos e ordenado por nome.
-            resultadoDePesquisa = (from contato in contatos
-                                   where contato.NomeCompleto.ToUpper().Contains(termo.ToUpper())
-                                   orderby contato.NomeCompleto
-                                   select contato)?.ToList();
+        //    return resultadoDePesquisa;
+        //}
 
-            return resultadoDePesquisa;
-        }
-
-        private string BaixaArquivo()
+        private string CarregaConteudoDoArquivo()
         {
             string conteudo = "";
             try
@@ -77,7 +87,7 @@ namespace AgendaCorporativa.Gerenciadores
         /// <summary>
         /// Sincroniza os contatos(baixa o arquivo CSV e atualizar os contatos na agenda do usuário)
         /// </summary>
-        public async Task SincronizarContatos()
+        public async Task BaixarArquivoDeContatos()
         {
             string conteudo = await gerenciadorDeDownload.BaixaConteudoArquivo(UrlDoArquivo);
 

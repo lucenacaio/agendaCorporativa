@@ -25,7 +25,7 @@
       <ListView x:Name="listaContatos"
                 Grid.Row="1"
                 BackgroundColor="White"
-                ItemSelected="OnSelected">
+                ItemSelected="ListaContatos_OnItemSelected">
               <ListView.ItemTemplate>
                 <DataTemplate>
                   <ViewCell>
@@ -50,7 +50,7 @@
               VerticalOptions="Center"
               TextColor="#FFFFFF"
               MinimumHeightRequest="30"
-              Clicked="OnSyncItems" />
+              Clicked="ButtonSincronizar_OnClick" />
 
     </Grid>
   </ContentPage.Content>

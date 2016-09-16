@@ -12,7 +12,7 @@ namespace AgendaCorporativa
 {
     public class App : Application
     {
-        public App(Contratos.IGerenciadorDeDownload gerenciadorDeDownload)
+        public App()
         {
             try
             {
@@ -32,7 +32,12 @@ namespace AgendaCorporativa
                 var alerta = DependencyService.Get<IAlerta>();
                 alerta.AlertaDialog("Erro", erro.Message);
             }
+            // The root page of your application
+            //MainPage = mainPage;
 
+            //DependencyService
+            //    .Get<IGerenciadorDeNotificacao>()
+            //    .AgendaNotificacao(DateTime.Now.AddDays(7), "Agenda Coorporativa", "Mantenha sua agenda atualizada!");
         }
 
         private NavigationPage InicializaPagina(ContentPage pagina)

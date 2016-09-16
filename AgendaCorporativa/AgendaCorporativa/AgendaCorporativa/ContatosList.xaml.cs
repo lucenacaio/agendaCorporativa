@@ -10,6 +10,7 @@ using AgendaCorporativa.Gerenciadores;
 using AgendaCorporativa.Contratos;
 using Plugin.Contacts.Abstractions;
 using Plugin.Contacts;
+using Stefanini.Xamarin.Gerenciadores;
 
 namespace AgendaCorporativa
 {
@@ -17,80 +18,29 @@ namespace AgendaCorporativa
     {
         GerenciadorDeContatos gerenciadorDeContatos;
 
-        public ContatosList(IGerenciadorDeDownload gerenciadorDeDownload)
+        public List<Contato> Contatos;
+
+        public ContatosList()
         {
+            gerenciadorDeContatos = new GerenciadorDeContatos(DependencyService.Get<IGerenciadorDeDownload>());
+
+            //Obtem os contatos do arquivo local
+            Contatos = gerenciadorDeContatos.ObtemContatosDoArquivo();
+
             InitializeComponent();
 
-            gerenciadorDeContatos = new GerenciadorDeContatos(gerenciadorDeDownload);
+            listaContatos.ItemsSource = Contatos;
         }
 
         private void Pesquisa_OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            listaContatos.ItemsSource = gerenciadorDeContatos.PesquisaContatos(e.NewTextValue);
+            listaContatos.ItemsSource = (from contato in Contatos
+                                         where contato.NomeCompleto.ToUpper().Contains(e.NewTextValue.ToUpper())
+                                         orderby contato.NomeCompleto
+                                         select contato)?.ToList();
         }
 
-        private async Task chamarContatos()
-        {
-            var contatos = await carregarAgenda();
-            List<Contato> contatosLista = new List<Contato>();
-
-            foreach (Contact contato in contatos)
-            {
-				List<Telefone> telefones = new List<Telefone>();
-				List<string> emails = new List<string>();
-
-				foreach (Phone phone in contato.Phones) 
-				{
-					Telefone telefone = new Telefone();
-					telefone.Numero = phone.Number;
-					telefones.Add(telefone);
-				}
-
-				foreach (Email email in contato.Emails)
-				{
-					emails.Add(email.Address);
-				}
-
-                Contato cont = new Contato();
-                cont.NomeFuncionario = contato.DisplayName;
-				cont.Telefones = telefones;
-				cont.Emails = emails;
-
-                contatosLista.Add(cont);
-            }
-			listaContatos.ItemsSource = contatosLista;
-        }
-
-        private async Task<List<Contact>> carregarAgenda()
-        {
-            List<Contact> contatos = null;
-            if (await CrossContacts.Current.RequestPermission())
-            {
-                CrossContacts.Current.PreferContactAggregation = false;//recommended
-                                                                       //run in background
-                await Task.Run(() =>
-                {
-                    if (CrossContacts.Current.Contacts == null)
-                        return;
-
-                    var contacts = CrossContacts.Current.Contacts
-                                            .Where(c => !string.IsNullOrWhiteSpace(c.FirstName) && c.Phones.Count > 0);
-
-                    contatos = contacts.OrderBy(c => c.FirstName).ToList();
-                });
-            }
-
-            return contatos;
-        }
-
-        protected override async void OnAppearing()
-        {
-            base.OnAppearing();
-
-            await AtualizarContatos(true, syncItems: false);
-        }
-
-        public void OnSelected(object sender, SelectedItemChangedEventArgs e)
+        public void ListaContatos_OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
             var contato = e.SelectedItem as Contato;
             if (contato != null)
@@ -99,40 +49,36 @@ namespace AgendaCorporativa
             }
         }
 
-        public async void OnRefresh(object sender, EventArgs e)
+        public async void ButtonSincronizar_OnClick(object sender, EventArgs e)
         {
-            var list = (ListView)sender;
             Exception error = null;
             try
             {
-                await AtualizarContatos(false, true);
+                //Limpa o textbox de pesquisa
+                nomePesquisa.Text = "";
+
+                //Baixa o arquivo
+                await gerenciadorDeContatos.BaixarArquivoDeContatos();
+
+                //Carrega os contatos do arquivo
+                Contatos = gerenciadorDeContatos.ObtemContatosDoArquivo();
+                listaContatos.ItemsSource = Contatos;
+
+                //Carrega os contatos da Agenda
+                //List<Contact> contatosDoAparelho = await GerenciadorDeAgenda.CarregaAgendaDoAparelho();
+
+                //TODO - Atualizar a agenda do aparelho.
+                DependencyService.Get<IGerenciadorDeAgenda>().AtualizarAgendaDoAparelho(Contatos);
             }
             catch (Exception ex)
             {
                 error = ex;
-            }
-            finally
-            {
-                list.EndRefresh();
             }
 
             if (error != null)
             {
                 await DisplayAlert("Erro ao recarregar", "Não foi possível recarregar os dados (" + error.Message + ")", "OK");
             }
-        }
-
-        public async void OnSyncItems(object sender, EventArgs e)
-        {
-            //await AtualizarContatos(true, true);
-            await chamarContatos();
-        }
-
-        private async Task AtualizarContatos(bool showActivityIndicator, bool syncItems)
-        {
-            await gerenciadorDeContatos.SincronizarContatos();
-
-            listaContatos.ItemsSource =  gerenciadorDeContatos.PesquisaContatos();
         }
     }
 }
