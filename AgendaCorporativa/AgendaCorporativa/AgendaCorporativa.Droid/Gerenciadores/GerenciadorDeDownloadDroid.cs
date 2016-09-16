@@ -13,7 +13,10 @@ using AgendaCorporativa.Contratos;
 using System.Net;
 using System.IO;
 using System.Threading.Tasks;
+using Xamarin.Forms;
+using AgendaCorporativa.Droid.Gerenciadores;
 
+[assembly: Dependency(typeof(GerenciadorDeDownloadDroid))]
 namespace AgendaCorporativa.Droid.Gerenciadores
 {
     public class GerenciadorDeDownloadDroid : IGerenciadorDeDownload

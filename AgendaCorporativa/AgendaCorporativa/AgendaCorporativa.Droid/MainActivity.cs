@@ -6,6 +6,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using Android.Content;
+using AgendaCorporativa.Droid.Gerenciadores;
 
 namespace AgendaCorporativa.Droid
 {
@@ -17,7 +19,7 @@ namespace AgendaCorporativa.Droid
             base.OnCreate(bundle);
 
             global::Xamarin.Forms.Forms.Init(this, bundle);
-            LoadApplication(new App(new Gerenciadores.GerenciadorDeDownloadDroid() ));
+            LoadApplication(new App());
         }
     }
 }

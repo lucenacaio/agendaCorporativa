@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 
 namespace Stefanini.Xamarin.Gerenciadores
 {
+    /// <summary>
+    /// Classe responsavel em acessar, alterar e deletar contatos na agenda do aparelho.
+    /// </summary>
     public class GerenciadorDeAgenda
     {
         /// <summary>
