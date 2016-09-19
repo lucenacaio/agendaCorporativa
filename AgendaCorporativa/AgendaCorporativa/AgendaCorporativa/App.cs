@@ -56,11 +56,11 @@ namespace AgendaCorporativa
         /// <summary>
         /// Verifica se o arquivo ja esta baixado, caso não, baixa e salva
         /// </summary>
-        private void VerificarArquivoContatos()
+        private async void VerificarArquivoContatos()
         {
             if (string.IsNullOrWhiteSpace(ControleArquivo.LerArquivo()))
             {
-                ControleArquivo.BaixareSalvarArquivo();
+                await ControleArquivo.BaixareSalvarArquivo();
             }
         }
 
