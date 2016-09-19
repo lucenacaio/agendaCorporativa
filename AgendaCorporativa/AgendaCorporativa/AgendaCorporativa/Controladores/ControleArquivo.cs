@@ -15,29 +15,29 @@ namespace AgendaCorporativa.Controladores
         /// Baixa arquivo mas não salva
         /// </summary>
         /// <returns></returns>
-        public static string BaixarArquivoTemp()
+        public static async Task<string> BaixarArquivoTemp()
         {
-            return BaixarArquivo(false);
+            return await BaixarArquivo(false);
         }
 
         /// <summary>
         /// Baixa e salva o arquivo
         /// </summary>
         /// <returns></returns>
-        public static string BaixareSalvarArquivo()
+        public static async Task<string> BaixareSalvarArquivo()
         {
-            return BaixarArquivo(true);
+            return await BaixarArquivo(true);
         }
 
-        private static string BaixarArquivo(bool salvar)
+        private static async Task<string> BaixarArquivo(bool salvar)
         {
             var gerenciadorArquivo = DependencyService.Get<IGerenciadorDeArquivo>();
             var gerenciadorDownload = DependencyService.Get<IGerenciadorDeDownload>();
 
-            var result = gerenciadorDownload.BaixaConteudoArquivo(Resources.UrlDoArquivo);
-            string conteudo = result?.Result;
+            var conteudo = await gerenciadorDownload.BaixaConteudoArquivo(Resources.UrlDoArquivo);
 
-            if(salvar & !string.IsNullOrWhiteSpace(conteudo ?? ""))
+
+            if (salvar & !string.IsNullOrWhiteSpace(conteudo ?? ""))
                 gerenciadorArquivo.SalvarTexto(Resources.NomeArquivoLocal, conteudo);
 
             return conteudo;
