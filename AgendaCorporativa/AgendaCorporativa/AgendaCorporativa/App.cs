@@ -1,4 +1,7 @@
-﻿using System;
+﻿using AgendaCorporativa.Contratos;
+using AgendaCorporativa.Controladores;
+using AgendaCorporativa.Excecoes;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,14 +12,56 @@ namespace AgendaCorporativa
 {
     public class App : Application
     {
-        public App(Contratos.IGerenciadorDeDownload gerenciadorDeDownload)
+        public App()
         {
-            NavigationPage mainPage = new NavigationPage(new ContatosList(gerenciadorDeDownload));
+            try
+            {
+                VerificarArquivoContatos();
+
+                ControleDeAutorizacao.Autorizar();
+
+                // The root page of your application
+                MainPage = InicializaPagina(new ContatosList());
+
+                //Agenda para que toda semana exibe uma notificacao de atualizar a agenda.
+                DependencyService
+                    .Get<IGerenciadorDeNotificacao>()
+                    .AgendaNotificacaoPeriodica(Modelos.Periodo.Semana, "Agenda Coorporativa", "Mantenha sua agenda atualizada!");
+            }
+            catch (ExcecaoDeAutenticacao erro)
+            {
+                MainPage = InicializaPagina(new PaginaDeErro());
+
+                ControleArquivo.DeletarArquivo();
+
+                var alerta = DependencyService.Get<IAlerta>();
+                alerta.AlertaDialog("Erro", erro.Message);
+            }
+            // The root page of your application
+            //MainPage = mainPage;
+
+        }
+
+        private NavigationPage InicializaPagina(ContentPage pagina)
+        {
+            NavigationPage mainPage;
+
+            mainPage = new NavigationPage(pagina);
             mainPage.BarBackgroundColor = Color.FromHex("004E9E");
             mainPage.BarTextColor = Color.White;
 
-            // The root page of your application
-            MainPage = mainPage;
+            return mainPage;
+        }
+
+        /// <summary>
+        /// Verifica se o arquivo ja esta baixado, caso não, baixa e salva
+        /// </summary>
+        private void VerificarArquivoContatos()
+        {
+            if (string.IsNullOrWhiteSpace(ControleArquivo.LerArquivo()))
+            {
+                ControleArquivo.BaixareSalvarArquivo();
+            }
         }
 
         protected override void OnStart()

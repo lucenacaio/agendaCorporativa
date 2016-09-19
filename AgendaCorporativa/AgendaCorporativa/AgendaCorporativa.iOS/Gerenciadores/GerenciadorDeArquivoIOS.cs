@@ -34,5 +34,20 @@ namespace AgendaCorporativa.iOS.Gerenciadores
             var filePath = Path.Combine(documentsPath, filename);
             File.WriteAllText(filePath, text);
         }
+
+        /// <summary>
+        /// Deleta o arquivo com o nome passado
+        /// </summary>
+        /// <param name="nomeDoArquivo">Nome do arquivo a ser deletado</param>
+        public void DeletarArquivo(string nomeDoArquivo)
+        {
+            var documentsPath = Environment.GetFolderPath(Environment.SpecialFolder.Personal);
+            var filePath = Path.Combine(documentsPath, nomeDoArquivo);
+
+            if(File.Exists(filePath))
+            {
+                File.Delete(filePath);
+            }
+        }
     }
 }

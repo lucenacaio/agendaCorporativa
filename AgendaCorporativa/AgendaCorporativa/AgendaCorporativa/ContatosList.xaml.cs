@@ -20,18 +20,16 @@ namespace AgendaCorporativa
 
         public List<Contato> Contatos;
 
-        public ContatosList(IGerenciadorDeDownload gerenciadorDeDownload)
+        public ContatosList()
         {
-            gerenciadorDeContatos = new GerenciadorDeContatos(gerenciadorDeDownload);
+            gerenciadorDeContatos = new GerenciadorDeContatos(DependencyService.Get<IGerenciadorDeDownload>());
 
             //Obtem os contatos do arquivo local
             Contatos = gerenciadorDeContatos.ObtemContatosDoArquivo();
 
-
             InitializeComponent();
 
             listaContatos.ItemsSource = Contatos;
-
         }
 
         private void Pesquisa_OnTextChanged(object sender, TextChangedEventArgs e)
@@ -81,8 +79,6 @@ namespace AgendaCorporativa
             {
                 await DisplayAlert("Erro ao recarregar", "Não foi possível recarregar os dados (" + error.Message + ")", "OK");
             }
-
         }
-
     }
 }

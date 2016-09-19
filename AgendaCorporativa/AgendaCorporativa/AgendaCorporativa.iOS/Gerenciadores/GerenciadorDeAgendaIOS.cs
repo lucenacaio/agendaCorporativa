@@ -91,13 +91,20 @@ namespace AgendaCorporativa.iOS.Gerenciadores
 
                 var fones = new ABMutableStringMultiValue();
 
+                var emails = new ABMutableStringMultiValue();
+
                 foreach (Telefone telefone in contatoArquivo.Telefones)
                 {
                     fones.Add(telefone.DDD + telefone.Numero, ABPersonPhoneLabel.Main);
                 }
-
                 novoContato.SetPhones(fones);
 
+                foreach (String email in contatoArquivo.Emails)
+                {
+                    emails.Add(email, ABPersonPhoneLabel.Main);
+                }
+                novoContato.SetEmails(emails);
+                
                 agenda.Add(novoContato);
                 agenda.Save();
             }

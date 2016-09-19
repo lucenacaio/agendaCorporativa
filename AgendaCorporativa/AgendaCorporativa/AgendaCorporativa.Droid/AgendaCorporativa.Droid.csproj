@@ -129,10 +129,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Gerenciadores\AlertaDialogDroid.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeAgendaDroid.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeArquivoDroid.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeDownloadDroid.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeImeiDroid.cs" />
+    <Compile Include="Gerenciadores\GerenciadorDeNotificacaoDroid.cs" />
     <Compile Include="MainActivity.cs" />
     <Compile Include="MainApplication.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />

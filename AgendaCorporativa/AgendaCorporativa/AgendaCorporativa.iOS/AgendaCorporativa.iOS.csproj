@@ -90,10 +90,13 @@
     <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Gerenciadores\AlertaDialogIOS.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeAgendaIOS.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeArquivoIOS.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeDownloadIOS.cs" />
     <Compile Include="Gerenciadores\GerenciadorDeImeiIOS.cs" />
+    <Compile Include="Gerenciadores\GerenciadorDeNotificacaoIOS.cs" />
+    <Compile Include="IOSExtentions\IOSExtentions.cs" />
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <None Include="Entitlements.plist" />
@@ -124,6 +127,9 @@
     <InterfaceDefinition Include="Resources\LaunchScreen.storyboard" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Mono.Android">
+      <HintPath>..\..\..\..\..\..\..\..\Program Files (x86)\Reference Assemblies\Microsoft\Framework\MonoAndroid\v6.0\Mono.Android.dll</HintPath>
+    </Reference>
     <Reference Include="Plugin.Contacts, Version=2.0.1.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\..\packages\Xam.Plugin.Contacts.2.0.2-beta1\lib\Xamarin.iOS10\Plugin.Contacts.dll</HintPath>
       <Private>True</Private>

@@ -24,5 +24,11 @@ namespace AgendaCorporativa.Contratos
         /// <param name="nomeDoArquivo"></param>
         /// <returns>Conteudo do arquivo</returns>
         string CarregarTexto(string nomeDoArquivo);
+        
+        /// <summary>
+        /// Deleta o arquivo com o nome passado
+        /// </summary>
+        /// <param name="nomeDoArquivo">Nome do arquivo a ser deletado</param>
+        void DeletarArquivo(string nomeDoArquivo);
     }
 }

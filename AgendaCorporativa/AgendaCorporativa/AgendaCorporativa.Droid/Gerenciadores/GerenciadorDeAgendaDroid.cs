@@ -24,9 +24,8 @@ namespace AgendaCorporativa.Droid.Gerenciadores
 {
     class GerenciadorDeAgendaDroid : IGerenciadorDeAgenda
     {
-        List<Contact> agenda;
-        private const int maxDigitos = 8;
-
+        public const int maxDigitos = 8;
+        private List<Contact> agenda;
         public GerenciadorDeAgendaDroid() {
         }
         public async void AtualizarAgendaDoAparelho(List<Contato> contatos)
