@@ -152,7 +152,7 @@ namespace AgendaCorporativa.Droid.Gerenciadores
                     {
                         string lookupkey = cursor.GetString(idx);
                         var lookupuri = Android.Net.Uri.WithAppendedPath(ContactsContract.Contacts.ContentLookupUri, lookupkey);
-                        ((Activity)context).ContentResolver.Delete(lookupuri, null, null);
+                        //((Activity)context).ContentResolver.Delete(lookupuri, null, null);
                         Console.WriteLine("Contato Deletado: {0}", contato.FirstName);
                     }
                     catch (Exception e)

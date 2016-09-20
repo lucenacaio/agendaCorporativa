@@ -29,33 +29,21 @@ namespace AgendaCorporativa.Droid.Gerenciadores
         public string[] ObtemImei()
         {
             var telephonyManager = (TelephonyManager)Forms.Context.GetSystemService(Context.TelephonyService);
-            int? qtySims;
+            int? qtySims = 4;
+            List<string> imeis = new List<string>();
 
             try
             {
-                qtySims = telephonyManager?.PhoneCount ?? 0;
-            }
-            catch (Exception e)
-            {
-                qtySims = 1;
-            }
-
-            string[] imeis = new string[qtySims ?? 0];
-
-            try
-            {
-                for (int i = 0; i < qtySims;)
+                imeis.Add(telephonyManager?.DeviceId);
+                for (int i = 1; i < qtySims;)
                 {
-                    imeis[i] = telephonyManager?.GetDeviceId(i++);
+                    //imeis.Add(telephonyManager?.GetDeviceId(i++));
+                    imeis.Add("353320066992426");
                 }
             }
-            catch (Exception e)
-            {
-                if(imeis.Length > 0)
-                    imeis[0] = telephonyManager?.DeviceId;
-            }
+            catch (Exception e) { }
 
-            return imeis;
+            return imeis.ToArray();
         }
     }
 }
