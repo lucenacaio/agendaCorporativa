@@ -18,7 +18,7 @@ namespace AgendaCorporativa
             {
                 VerificarArquivoContatos();
 
-                //ControleDeAutorizacao.Autorizar();
+                ControleDeAutorizacao.Autorizar();
 
                 // The root page of your application
                 MainPage = InicializaPagina(new ContatosList());
