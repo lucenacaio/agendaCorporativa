@@ -13,6 +13,8 @@ using AgendaCorporativa.Contratos;
 using Xamarin.Forms;
 using Android.Telephony;
 using AgendaCorporativa.Droid.Gerenciadores;
+using Java.Lang;
+using Java.Lang.Reflect;
 
 [assembly: Dependency(typeof(GerenciadorDeImeiDroid))]
 namespace AgendaCorporativa.Droid.Gerenciadores
@@ -29,19 +31,23 @@ namespace AgendaCorporativa.Droid.Gerenciadores
         public string[] ObtemImei()
         {
             var telephonyManager = (TelephonyManager)Forms.Context.GetSystemService(Context.TelephonyService);
-            int? qtySims = 4;
             List<string> imeis = new List<string>();
+            
+            Class telephonyManagerClass = Class.ForName(telephonyManager.Class.Name);
+            Class[] parameter = new Class[1];
+            parameter[0] = Integer.Type;
 
-            try
+            Method DeviceId = telephonyManagerClass.GetMethod("getDeviceId", parameter);
+
+            Java.Lang.Object[] parametro = new Java.Lang.Object[1];
+
+            for (int i = 0; i < 4; i++)
             {
-                imeis.Add(telephonyManager?.DeviceId);
-                for (int i = 1; i < qtySims;)
-                {
-                    //imeis.Add(telephonyManager?.GetDeviceId(i++));
-                    imeis.Add("353320066992426");
-                }
+                parametro[0] = i;
+                var imei = DeviceId.Invoke(telephonyManager, parametro);
+                if(!imeis.Contains(imei.ToString()))
+                    imeis.Add(imei.ToString());
             }
-            catch (Exception e) { }
 
             return imeis.ToArray();
         }
