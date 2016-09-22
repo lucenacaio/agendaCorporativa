@@ -20,6 +20,8 @@ namespace AgendaCorporativa
 
         public List<Contato> Contatos;
 
+        private bool isBloqueado { get; set; }
+
         public ContatosList()
         {
             gerenciadorDeContatos = new GerenciadorDeContatos(DependencyService.Get<IGerenciadorDeDownload>());
@@ -45,15 +47,30 @@ namespace AgendaCorporativa
             var contato = e.SelectedItem as Contato;
             if (contato != null)
             {
-                Navigation.PushAsync(new DetalharContato(contato));
+                if (!isBloqueado)
+                    Navigation.PushAsync(new DetalharContato(contato));
             }
+        }
+
+        private void CarregandoDados(bool status)
+        {
+            syncIndicator.IsVisible = status;
+            isBloqueado = status;
+            listaContatos.IsEnabled = !status;
         }
 
         public async void ButtonSincronizar_OnClick(object sender, EventArgs e)
         {
+           
+
             Exception error = null;
             try
             {
+                //Não executa o método caso esteja sendo executado algum serviço
+                if (isBloqueado) return;
+
+                //Caso seja iniciado uma chamada de serviço, bloqueia as views
+                CarregandoDados(true);
                 //Limpa o textbox de pesquisa
                 nomePesquisa.Text = "";
 
@@ -79,6 +96,8 @@ namespace AgendaCorporativa
             {
                 await DisplayAlert("Erro ao recarregar", "Não foi possível recarregar os dados (" + error.Message + ")", "OK");
             }
+            //Quando o serviço é finalizado seja ou não com sucesso, habilita todas as views
+            CarregandoDados(false);
         }
     }
 }
