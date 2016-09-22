@@ -31,24 +31,35 @@ namespace AgendaCorporativa.Droid.Gerenciadores
         public string[] ObtemImei()
         {
             var telephonyManager = (TelephonyManager)Forms.Context.GetSystemService(Context.TelephonyService);
+
             List<string> imeis = new List<string>();
-            
-            Class telephonyManagerClass = Class.ForName(telephonyManager.Class.Name);
-            Class[] parameter = new Class[1];
-            parameter[0] = Integer.Type;
 
-            Method DeviceId = telephonyManagerClass.GetMethod("getDeviceId", parameter);
+            BuildVersionCodes version = Build.VERSION.SdkInt;
 
-            Java.Lang.Object[] parametro = new Java.Lang.Object[1];
-
-            for (int i = 0; i < 4; i++)
+            //Na versão 22 pra cima, possuem o metodo getDeviceId, que possibilita pegar mais de um IMEI.
+            if (version >= BuildVersionCodes.LollipopMr1)
             {
-                parametro[0] = i;
-                var imei = DeviceId.Invoke(telephonyManager, parametro);
-                if(!imeis.Contains(imei.ToString()))
-                    imeis.Add(imei.ToString());
-            }
+                Class telephonyManagerClass = Class.ForName(telephonyManager.Class.Name);
+                Class[] parameter = new Class[1];
+                parameter[0] = Integer.Type;
 
+                Method DeviceId = telephonyManagerClass.GetMethod("getDeviceId", parameter);
+
+                Java.Lang.Object[] parametro = new Java.Lang.Object[1];
+
+                for (int i = 0; i < 4; i++)
+                {
+                    parametro[0] = i;
+                    var imei = DeviceId.Invoke(telephonyManager, parametro);
+                    if (!imeis.Contains(imei.ToString()))
+                        imeis.Add(imei.ToString());
+                }
+            }
+            else
+            {
+                //Obtem ID
+                imeis.Add(telephonyManager.DeviceId);
+            }
             return imeis.ToArray();
         }
     }

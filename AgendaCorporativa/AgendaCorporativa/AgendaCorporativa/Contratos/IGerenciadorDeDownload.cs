@@ -13,6 +13,6 @@ namespace AgendaCorporativa.Contratos
         /// </summary>
         /// <param name="url">Endereço do arquivo</param>
         /// <returns>Conteudo do arquivo</returns>
-        Task<string> BaixaConteudoArquivo(string url);
+        string BaixaConteudoArquivo(string url);
     }
 }

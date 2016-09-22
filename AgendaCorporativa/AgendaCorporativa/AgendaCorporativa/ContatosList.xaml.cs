@@ -75,7 +75,7 @@ namespace AgendaCorporativa
                 nomePesquisa.Text = "";
 
                 //Baixa o arquivo
-                await gerenciadorDeContatos.BaixarArquivoDeContatos();
+                gerenciadorDeContatos.BaixarArquivoDeContatos();
 
                 //Carrega os contatos do arquivo
                 Contatos = gerenciadorDeContatos.ObtemContatosDoArquivo();
