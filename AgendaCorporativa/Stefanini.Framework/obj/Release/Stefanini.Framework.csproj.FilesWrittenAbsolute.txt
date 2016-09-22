@@ -1,0 +1,5 @@
+/Users/mpleite1/Documents/Xamarin/AGENDA/STF-CPG-Agenda_Coorporativa/AgendaCorporativa/Stefanini.Framework/obj/Release/.NETPortable,Version=v4.5,Profile=Profile111.AssemblyAttribute.cs
+/Users/mpleite1/Documents/Xamarin/AGENDA/STF-CPG-Agenda_Coorporativa/AgendaCorporativa/Stefanini.Framework/bin/Release/Stefanini.Framework.dll.mdb
+/Users/mpleite1/Documents/Xamarin/AGENDA/STF-CPG-Agenda_Coorporativa/AgendaCorporativa/Stefanini.Framework/bin/Release/Stefanini.Framework.dll
+/Users/mpleite1/Documents/Xamarin/AGENDA/STF-CPG-Agenda_Coorporativa/AgendaCorporativa/Stefanini.Framework/obj/Release/Stefanini.Framework.dll
+/Users/mpleite1/Documents/Xamarin/AGENDA/STF-CPG-Agenda_Coorporativa/AgendaCorporativa/Stefanini.Framework/obj/Release/Stefanini.Framework.dll.mdb
