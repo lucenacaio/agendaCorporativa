@@ -24,12 +24,11 @@ namespace AgendaCorporativa.Droid.Gerenciadores
         /// <summary>
         /// Classe responsavel pelo tratamento de downloads no sistema Android
         /// </summary>
-        public async Task<string> BaixaConteudoArquivo(string url)
+        public  string BaixaConteudoArquivo(string url)
         {
             var webClient = new WebClient();
-
             webClient.Encoding = Encoding.UTF8;
-            return await webClient.DownloadStringTaskAsync(new Uri(url));
+            return  webClient.DownloadString(new Uri(url));
         }
     }
 }
