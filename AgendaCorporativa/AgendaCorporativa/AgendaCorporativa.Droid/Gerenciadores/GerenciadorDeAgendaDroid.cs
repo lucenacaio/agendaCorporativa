@@ -45,32 +45,17 @@ namespace AgendaCorporativa.Droid.Gerenciadores
             //Gerenciador de acesso a conteudos
             contentResolver = ((Activity)context).ContentResolver;
 
-            Console.WriteLine("CARREGANDO CONTATOS DA AGENDA DO APARELHO");
-            DateTime dataInicio = DateTime.Now;
-            Console.WriteLine("INICIANDO EM: {0}", dataInicio);
             agenda = await CarregarContatosAgendaAparelho();
-            Console.WriteLine("CARREGANDO CONTATOS DA AGENDA DO APARELHO");
-            Console.WriteLine("FINALIZADO EM: {0}", (DateTime.Now - dataInicio));
 
             if (agenda.Count > 0)
             {
                 //Monta uma lista de telefones do arquivo.
                 List<Telefone> telefonesDoArquivo = contatos.SelectMany(l => l.Telefones).ToList();
-                dataInicio = DateTime.Now;
-                Console.WriteLine("REMOVENDO CONTATOS DUPLICADOS");
-                Console.WriteLine("INICIANDO EM: {0}", dataInicio);
                 //Remove os contatos existentes
                 RemoveContatosExistentes(telefonesDoArquivo);
-                Console.WriteLine("REMOVENDO CONTATOS DUPLICADOS");
-                Console.WriteLine("FINALIZADO EM: {0}", (DateTime.Now - dataInicio));
 
-                dataInicio = DateTime.Now;
-                Console.WriteLine("CADASTRANDO NOVOS CONTATOS");
-                Console.WriteLine("INICIANDO EM: {0}", dataInicio);
                 //Cadastra os contatos do arquivo
                 CadastraContatos(contatos);
-                Console.WriteLine("CADASTRANDO NOVOS CONTATOS");
-                Console.WriteLine("FINALIZADO EM: {0}", (DateTime.Now - dataInicio));
             }
 
 
@@ -145,11 +130,9 @@ namespace AgendaCorporativa.Droid.Gerenciadores
                 {
                     //Utiliza o gerenciador de conteudo verificando se o usuario possui permissao de escrita e adiciona o mesmo na lista de contatos
                     var res = Forms.Context.ContentResolver.ApplyBatch(ContactsContract.Authority, ops);
-                    Console.WriteLine("Contato:  " + contatoArquivo.NomeFuncionario + " adicionado");
                 }
                 catch
                 {
-                    Console.WriteLine("ERRO AO TENTAR ADICIONAR:  " + contatoArquivo.NomeFuncionario);
                 }
             }
         }
