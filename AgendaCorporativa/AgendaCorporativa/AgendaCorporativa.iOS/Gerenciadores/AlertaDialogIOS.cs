@@ -15,6 +15,18 @@ namespace AgendaCorporativa.iOS.Gerenciadores
     {
         public void AlertaDialog(string titulo, string msg)
         {
+            PrepareAlerta(titulo, msg);
+        }
+
+        public void AlertaDialogAndCloseApp(string titulo, string msg)
+        {
+            UIAlertView alert = PrepareAlerta(titulo, msg);
+
+            alert.Clicked += Alert_Clicked;
+        }
+
+        private UIAlertView PrepareAlerta(string titulo, string msg)
+        {
             UIAlertView alert = new UIAlertView()
             {
                 Title = titulo,
@@ -23,7 +35,7 @@ namespace AgendaCorporativa.iOS.Gerenciadores
             alert.AddButton("OK");
             alert.Show();
 
-            alert.Clicked += Alert_Clicked;
+            return alert;
         }
 
         private void Alert_Clicked(object sender, UIButtonEventArgs e)

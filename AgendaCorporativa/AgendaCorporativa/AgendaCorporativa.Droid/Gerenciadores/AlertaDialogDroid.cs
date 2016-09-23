@@ -20,13 +20,26 @@ namespace AgendaCorporativa.Droid.Gerenciadores
     {
         public void AlertaDialog(string titulo, string msg)
         {
-           
+            AlertDialog.Builder builder = PrepareAlerta(titulo, msg);
+            builder.SetPositiveButton("OK", delegate { });
+            builder.Show();
+        }
+
+        public void AlertaDialogAndCloseApp(string titulo, string msg)
+        {
+            AlertDialog.Builder builder = PrepareAlerta(titulo, msg);
+            builder.SetPositiveButton("OK", delegate { ((Activity)Forms.Context).Finish(); });
+            builder.Show();
+        }
+
+        private AlertDialog.Builder PrepareAlerta(string titulo, string msg)
+        {
             AlertDialog.Builder builder = new AlertDialog.Builder(Forms.Context);
             builder.SetTitle(titulo);
             builder.SetMessage(msg);
             builder.SetCancelable(false);
-            builder.SetPositiveButton("OK", delegate { ((Activity)Forms.Context).Finish(); });
-            builder.Show();
+
+            return builder;
         }
     }
 }

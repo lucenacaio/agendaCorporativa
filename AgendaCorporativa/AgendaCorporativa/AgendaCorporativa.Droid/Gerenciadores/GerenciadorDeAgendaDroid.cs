@@ -143,7 +143,6 @@ namespace AgendaCorporativa.Droid.Gerenciadores
                 {
                     Console.WriteLine("ERRO AO TENTAR ADICIONAR:  " + contatoArquivo.NomeFuncionario);
                 }
-                break;
             }
         }
 

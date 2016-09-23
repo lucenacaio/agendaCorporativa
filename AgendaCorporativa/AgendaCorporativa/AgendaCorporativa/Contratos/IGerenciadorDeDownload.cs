@@ -14,5 +14,7 @@ namespace AgendaCorporativa.Contratos
         /// <param name="url">Endereço do arquivo</param>
         /// <returns>Conteudo do arquivo</returns>
         string BaixaConteudoArquivo(string url);
+
+        Task<string> BaixaConteudoArquivoAsync(string url);
     }
 }

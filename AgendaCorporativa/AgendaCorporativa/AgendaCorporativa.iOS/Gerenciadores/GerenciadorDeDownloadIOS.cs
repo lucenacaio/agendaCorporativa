@@ -27,5 +27,13 @@ namespace AgendaCorporativa.iOS.Gerenciadores
             webClient.Encoding = Encoding.UTF8;
             return webClient.DownloadString(new Uri(url));
         }
+
+        public async Task<string> BaixaConteudoArquivoAsync(string url)
+        {
+            var webClient = new WebClient();
+
+            webClient.Encoding = Encoding.UTF8;
+            return await webClient.DownloadStringTaskAsync(new Uri(url));
+        }
     }
 }
