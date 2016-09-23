@@ -209,7 +209,7 @@ namespace AgendaCorporativa.Gerenciadores
             foreach (string linhaDoArquivo in conteudoDoArquivo.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
             {
                 Contato contato = new Contato();
-                string[] valores = linhaDoArquivo.Split(';');
+                string[] valores = linhaDoArquivo.Split(new[] { ';', ',' });
 
                 string dadosImeis = valores[0];
 

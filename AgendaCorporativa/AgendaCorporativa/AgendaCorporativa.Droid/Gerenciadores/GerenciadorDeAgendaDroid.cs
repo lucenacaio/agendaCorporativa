@@ -101,6 +101,14 @@ namespace AgendaCorporativa.Droid.Gerenciadores
                 builder.WithValue(ContactsContract.CommonDataKinds.StructuredName.GivenName, contatoArquivo.NomeFuncionario);
                 ops.Add(builder.Build());
 
+                //Empresa
+                builder = ContentProviderOperation.NewInsert(ContactsContract.Data.ContentUri);
+                builder.WithValueBackReference(ContactsContract.Data.InterfaceConsts.RawContactId, rawContactInsertIndex);
+                builder.WithValue(ContactsContract.Data.InterfaceConsts.Mimetype,
+                    ContactsContract.CommonDataKinds.Organization.ContentItemType);
+                builder.WithValue(ContactsContract.CommonDataKinds.Organization.Company, "STEFANINI - Agenda Corporativa");
+                ops.Add(builder.Build());
+
                 //Adicionando telefones
                 int nItem = 1;
                 foreach (Telefone telefone in contatoArquivo.Telefones)

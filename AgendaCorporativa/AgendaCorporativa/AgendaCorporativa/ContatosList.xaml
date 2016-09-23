@@ -71,6 +71,15 @@
                            TextColor="#FFFFFF"
                            LineBreakMode="TailTruncation"
                            FontSize="Medium"/>
+
+                    <Label x:Name="timeLoad"
+                           Text="Load" 
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           TextColor="#FFFFFF"
+                           LineBreakMode="TailTruncation"
+                           FontSize="Medium"/>
                 </StackLayout>
             </Grid>
               
