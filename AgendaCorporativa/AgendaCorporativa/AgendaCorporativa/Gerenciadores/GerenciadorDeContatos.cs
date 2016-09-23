@@ -87,6 +87,16 @@ namespace AgendaCorporativa.Gerenciadores
         /// <summary>
         /// Sincroniza os contatos(baixa o arquivo CSV e atualizar os contatos na agenda do usuário)
         /// </summary>
+        public async Task BaixarArquivoDeContatosAsync()
+        {
+            var conteudo = await gerenciadorDeDownload.BaixaConteudoArquivoAsync(UrlDoArquivo);
+
+            DependencyService.Get<IGerenciadorDeArquivo>().SalvarTexto(NomeArquivoLocal, conteudo);
+        }
+
+        /// <summary>
+        /// Sincroniza os contatos(baixa o arquivo CSV e atualizar os contatos na agenda do usuário)
+        /// </summary>
         public void BaixarArquivoDeContatos()
         {
             string conteudo = gerenciadorDeDownload.BaixaConteudoArquivo(UrlDoArquivo);
