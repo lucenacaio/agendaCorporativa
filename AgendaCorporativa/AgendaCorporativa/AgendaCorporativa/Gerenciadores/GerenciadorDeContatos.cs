@@ -47,7 +47,7 @@ namespace AgendaCorporativa.Gerenciadores
         {
             string conteudo = CarregaConteudoDoArquivo();
 
-            return ConverteParaLista(conteudo).OrderBy(x=>x.NomeFuncionario).ToList();
+            return ConverteParaLista(conteudo).OrderBy(x => x.NomeFuncionario).ToList();
         }
 
         /// <summary>
@@ -115,14 +115,16 @@ namespace AgendaCorporativa.Gerenciadores
         {
             List<Contato> contatos = new List<Contato>();
 
+            var linhasDoArquivo = conteudoDoArquivo.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries);
 
-            //TODO - Deve pular a primeira linha
-            //TODO - Deve validar se o contato já não existe na lista
-            foreach (string linhaDoArquivo in conteudoDoArquivo.Split(new string[] { Environment.NewLine }, StringSplitOptions.RemoveEmptyEntries))
+            //A primeira linha do arquivo é um cabeçalho
+            //Começa a ler o arquivo a partir da segunda linha
+            for (int i = 1; i < linhasDoArquivo.Count(); i++)
             {
-                string[] valores = linhaDoArquivo.Split(';');
+                //O arquivo pode ser divido por ';' ou ',' 
+                //Dependendo da versão do excel ele gera o arquivo csv separado com ',' ou ';'.
+                string[] valores = linhasDoArquivo[i].Split(new[] { ';', ',' });
 
-                //TODO - Isso deveria guardar algum log?
                 //Pulando linhas irregulares.
                 if (valores.Count() != 5)
                     continue;
@@ -130,6 +132,7 @@ namespace AgendaCorporativa.Gerenciadores
                 //IMEI
                 string imei = FormataEmei(valores[0]);
 
+                //Nome Completo(Apenas para separar)
                 string nomeCompleto = valores[1];
                 //Nome
                 string nome = nomeCompleto.Split(' ')[0];
@@ -137,7 +140,7 @@ namespace AgendaCorporativa.Gerenciadores
                 string sobrenome = "";
                 if (nomeCompleto.Split(' ').Count() > 1)
                 {
-                    sobrenome = nomeCompleto.Remove(0,nome.Length + 1);
+                    sobrenome = nomeCompleto.Remove(0, nome.Length + 1);
                 }
                 //Email
                 string email = valores[2];
