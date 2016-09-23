@@ -1,27 +1,17 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
-using Android.Net;
 using AgendaCorporativa.Contratos;
 using Plugin.Contacts.Abstractions;
 using AgendaCorporativa.Droid.Gerenciadores;
 using Xamarin.Forms;
 using AgendaCorporativa.Modelos;
 using Android.Provider;
-using Stefanini.Xamarin.Gerenciadores;
 using Stefanini.Framework.Extensoes;
 using System.Threading.Tasks;
-using Android.Database;
-using Java.Lang;
-using Android.Text;
 
 [assembly: Dependency(typeof(GerenciadorDeAgendaDroid))]
 namespace AgendaCorporativa.Droid.Gerenciadores
@@ -49,30 +39,38 @@ namespace AgendaCorporativa.Droid.Gerenciadores
         {
 
         }
+
         public async void AtualizarAgendaDoAparelho(List<Contato> contatos)
         {
+            //Gerenciador de acesso a conteudos
             contentResolver = ((Activity)context).ContentResolver;
-            //agenda = await GerenciadorDeAgenda.CarregaAgendaDoAparelho();
-            try
-            {
-                agenda = await CarregarContatosAgendaAparelho();
-            }
-            catch (System.Exception e)
-            {
-                Console.WriteLine("Erro ao tentar carregar a lista da agenda do aparelho: " + e.Message);
-            }
 
+            Console.WriteLine("CARREGANDO CONTATOS DA AGENDA DO APARELHO");
+            DateTime dataInicio = DateTime.Now;
+            Console.WriteLine("INICIANDO EM: {0}", dataInicio);
+            agenda = await CarregarContatosAgendaAparelho();
+            Console.WriteLine("CARREGANDO CONTATOS DA AGENDA DO APARELHO");
+            Console.WriteLine("FINALIZADO EM: {0}", (DateTime.Now - dataInicio));
 
-            if (agenda.Count == 0)
+            if (agenda.Count > 0)
             {
-                Console.WriteLine("O Aparelho não possui contatos.");
-            }
-            else
-            {
+                //Monta uma lista de telefones do arquivo.
+                List<Telefone> telefonesDoArquivo = contatos.SelectMany(l => l.Telefones).ToList();
+                dataInicio = DateTime.Now;
+                Console.WriteLine("REMOVENDO CONTATOS DUPLICADOS");
+                Console.WriteLine("INICIANDO EM: {0}", dataInicio);
                 //Remove os contatos existentes
-                RemoveContatosExistentes(contatos);
+                RemoveContatosExistentes(telefonesDoArquivo);
+                Console.WriteLine("REMOVENDO CONTATOS DUPLICADOS");
+                Console.WriteLine("FINALIZADO EM: {0}", (DateTime.Now - dataInicio));
+
+                dataInicio = DateTime.Now;
+                Console.WriteLine("CADASTRANDO NOVOS CONTATOS");
+                Console.WriteLine("INICIANDO EM: {0}", dataInicio);
                 //Cadastra os contatos do arquivo
                 CadastraContatos(contatos);
+                Console.WriteLine("CADASTRANDO NOVOS CONTATOS");
+                Console.WriteLine("FINALIZADO EM: {0}", (DateTime.Now - dataInicio));
             }
 
 
@@ -84,8 +82,10 @@ namespace AgendaCorporativa.Droid.Gerenciadores
             foreach (Contato contatoArquivo in contatos)
             {
                 List<ContentProviderOperation> ops = new List<ContentProviderOperation>();
+                //contador de contatos que serve como indice para adicionar novos contatos
                 int rawContactInsertIndex = ops.Count;
 
+                //Agrupador dos dados do contato - nele serao adicionados todos os dados do contato
                 ContentProviderOperation.Builder builder =
                     ContentProviderOperation.NewInsert(ContactsContract.RawContacts.ContentUri);
                 builder.WithValue(ContactsContract.RawContacts.InterfaceConsts.AccountType, null);
@@ -93,16 +93,22 @@ namespace AgendaCorporativa.Droid.Gerenciadores
                 ops.Add(builder.Build());
 
                 //Nome
+                //instancia um novo objeto onde serao inseridos os dados do contato, buscando pela constante do sistema que possui o endereco
                 builder = ContentProviderOperation.NewInsert(ContactsContract.Data.ContentUri);
+                //criar uma referencia com um identificador unico no agrupador de dados
                 builder.WithValueBackReference(ContactsContract.Data.InterfaceConsts.RawContactId, rawContactInsertIndex);
+                //define o tipo de objeto que sera inserido no agrupador e modelo de contexto
                 builder.WithValue(ContactsContract.Data.InterfaceConsts.Mimetype,
                     ContactsContract.CommonDataKinds.StructuredName.ContentItemType);
+                //define valores do contato, podem ser utilizados quaisquer atributos do contato e um respectivo valor nas 2 chamadas abaixo
                 builder.WithValue(ContactsContract.CommonDataKinds.StructuredName.FamilyName, contatoArquivo.SobrenomeFuncionario);
                 builder.WithValue(ContactsContract.CommonDataKinds.StructuredName.GivenName, contatoArquivo.NomeFuncionario);
+                //adiciona a nova entrada ao agrupador de dados.
                 ops.Add(builder.Build());
 
-                //Adicionando telefones
+                //Indice que serve para auxiliar nos labes de cada telefone, caso exista mais de 1 telefone por contato
                 int nItem = 1;
+                //percore a lista de todos os telefones existentes no contato
                 foreach (Telefone telefone in contatoArquivo.Telefones)
                 {
                     builder = ContentProviderOperation.NewInsert(ContactsContract.Data.ContentUri);
@@ -118,6 +124,7 @@ namespace AgendaCorporativa.Droid.Gerenciadores
                 }
 
                 nItem = 1;
+                //percorre a lista de todos os emails existentes no contato.
                 foreach (string email in contatoArquivo.Emails)
                 {
                     //Email
@@ -136,6 +143,7 @@ namespace AgendaCorporativa.Droid.Gerenciadores
 
                 try
                 {
+                    //Utiliza o gerenciador de conteudo verificando se o usuario possui permissao de escrita e adiciona o mesmo na lista de contatos
                     var res = Forms.Context.ContentResolver.ApplyBatch(ContactsContract.Authority, ops);
                     Console.WriteLine("Contato:  " + contatoArquivo.NomeFuncionario + " adicionado");
                 }
@@ -143,14 +151,18 @@ namespace AgendaCorporativa.Droid.Gerenciadores
                 {
                     Console.WriteLine("ERRO AO TENTAR ADICIONAR:  " + contatoArquivo.NomeFuncionario);
                 }
-                break;
             }
         }
 
-        private void RemoveContatosExistentes(List<Contato> contatos)
+        /// <summary>
+        /// Busca e remove os contatos da lista da agenda do aparelho. 
+        /// Comparando com a lista da base de servico.
+        /// </summary>
+        /// <param name="contatos">Lista de contatos do arquivo</param>
+        private void RemoveContatosExistentes(List<Telefone> telefonesDoArquivo)
         {
-            var telefonesDoArquivo = contatos.SelectMany(l => l.Telefones).ToList();
-
+            //percre a agenda do aparelho e compara com a lista e contatos do parametro e verifica se o contato existe
+            //em ambas as listas, se baseando nos ultimos 8 digitos do numero de telefone do contato
             List<Contact> contatosExistente =
                 (from person in agenda
                  where ((from phone in person.Phones
@@ -159,40 +171,54 @@ namespace AgendaCorporativa.Droid.Gerenciadores
 
                  select person).ToList();
 
-
-            //Remove Contatos Existentes
+            //Remove Contatos da agenda do aparelho, que estao duplicados em ambas as listas
             foreach (var contato in contatosExistente)
             {
                 Android.Net.Uri uri = ContactsContract.Contacts.ContentUri;
 
+                //define um grupo de colunas que sera acessada do Cursor da busca
                 string[] colunas = {
                     ContactsContract.Contacts.InterfaceConsts.Id,
                     ContactsContract.Contacts.InterfaceConsts.DisplayName,
                     ContactsContract.Contacts.InterfaceConsts.LookupKey
                 };
+
+                //define qual(is) parametro(s) sera(ao) utilizados na pesquisa
                 string paramsBusca = string.Format("{0} = '{1}'", ContactsContract.ContactsColumns.DisplayName, contato.FirstName);
 
+                //Define um objeto do tipo ICursor que acessa o conteudo atraves de uma Query chamada pelo Gerenciador de Conteudo
+                //utilizando URI (local do servico), COLUNAS (quais dados primario retornarao no cursor da pesquisa),
+                //PARAMSBUSCA (Quais parametros serao comparados para que seja realizada a pesquisa
                 var cursor = ((Activity)context).ContentResolver.Query(uri, colunas, paramsBusca, null, null);
-
-                while (cursor.MoveToNext())
-                {
-                    try
+                //o ICursor pode retornar nulo caso aconteca algum problema na query
+                if (cursor != null)
+                    while (cursor.MoveToNext())//percore todos os itens retornados na pesquisa
                     {
+                        //Obtem o indice da coluna LookupKey do cursor
                         int indice = cursor.GetColumnIndex(ContactsContract.ContactsColumns.LookupKey);
+
+                        //Caso não encontre o valor será -1, onde significa que nao foi possivel encontrar o mesmo
                         if (indice != -1)
                         {
+                            //Obtem o conteudo que está posicionado no indice da coluna LookupKey
                             string lookupKey = cursor.GetString(indice);
+
+                            //Caso o conteudo seja NULL, deve passar pro próximo.
+                            if (lookupKey == null)
+                                continue;
+
+                            //uriBsca retorna o endereco real do item em tempo de execucao dentro do ICursor a partir da chave de posicao
                             Android.Net.Uri uriBusca = Android.Net.Uri.WithAppendedPath(ContactsContract.Contacts.ContentLookupUri, lookupKey);
 
+                            //Caso a uriBusca seja NULL, deve passar pro próximo
+                            if (uriBusca == null)
+                                continue;
+
+                            //O gerenciador de conteudo executa a acao de Delete se baseando no endereco real, acima citado
                             ((Activity)context).ContentResolver.Delete(uriBusca, null, null);
                         }
-
                     }
-                    catch (System.Exception e)
-                    {
-                        Console.WriteLine("Error", e.Message);
-                    }
-                }
+                //sempre que um ICursor for aberto, o mesmo precisa ser fechado, afim de evitar estouro de memoria
                 cursor.Close();
             }
         }
@@ -214,70 +240,74 @@ namespace AgendaCorporativa.Droid.Gerenciadores
         }
 
         /// <summary>
-        /// Responsável por carregar os contatos da agente do aparelho
+        /// Carrega os contatos da agenda do aparelho
         /// </summary>
         /// <returns></returns>
         public async Task<List<Contact>> CarregarContatosAgendaAparelho()
         {
             List<Contact> dadosAgenda = new List<Contact>();
+
             Android.Net.Uri uri = ContactsContract.Contacts.ContentUri;
 
+            //Mapeia as colunas que vão ser retornadas. (Id, Nome, Chave da posição do cursor em tempo de execução)
             string[] colunas = {
                     ContactsContract.Contacts.InterfaceConsts.Id,
                     ContactsContract.Contacts.InterfaceConsts.DisplayName,
                     ContactsContract.Contacts.InterfaceConsts.LookupKey
-
                 };
+            //Pesquisa nos contatos(uri) as informações(colunas)
             var cursor = ((Activity)context).ContentResolver.Query(uri, colunas, null, null, null);
+
             if (cursor != null)
                 while (cursor.MoveToNext())
                 {
-                    try
+                    Contact contato = new Contact();
+
+                    int indice = cursor.GetColumnIndex(ContactsContract.ContactsColumns.LookupKey);
+                    if (indice != -1)
                     {
-                        Contact contato = new Contact();
+                        contato.DisplayName = cursor.GetString(cursor.GetColumnIndex(DISPLAY_NAME));
+                        contato.FirstName = cursor.GetString(cursor.GetColumnIndex(DISPLAY_NAME));
+
+                        //Obtem o conteudo que está posicionado no indice da coluna LookupKey
+                        string lookupKey = cursor.GetString(indice);
+                        //Caso o conteudo seja NULL, deve passar pro próximo.
+                        if (lookupKey == null) continue;
 
 
-                        int indice = cursor.GetColumnIndex(ContactsContract.ContactsColumns.LookupKey);
-                        if (indice != -1)
-                        {
-                            contato.DisplayName = cursor.GetString(cursor.GetColumnIndex(DISPLAY_NAME));
-                            contato.FirstName = cursor.GetString(cursor.GetColumnIndex(DISPLAY_NAME));
-                            string lookupKey = cursor.GetString(indice);
-                            Android.Net.Uri uriBusca = Android.Net.Uri.WithAppendedPath(ContactsContract.Contacts.ContentLookupUri, lookupKey);
-                            string idContato = cursor.GetString(cursor.GetColumnIndex(ContactsContract.Contacts.InterfaceConsts.Id));
+                        Android.Net.Uri uriBusca = Android.Net.Uri.WithAppendedPath(ContactsContract.Contacts.ContentLookupUri, lookupKey);
+                        //Caso a uriBusca seja NULL, deve passar pro próximo
+                        if (uriBusca == null) continue;
 
-                            var telefones = ((Activity)context).ContentResolver.Query(ContactsContract.CommonDataKinds.Phone.ContentUri,
-                            null, ContactsContract.CommonDataKinds.Phone.InterfaceConsts.ContactId + " = " + idContato, null, null);
+                        string idContato = cursor.GetString(cursor.GetColumnIndex(ContactsContract.Contacts.InterfaceConsts.Id));
+                        if (idContato == null) continue;
 
-                            if (telefones != null)
-                                while (telefones.MoveToNext())
-                                {
-                                    string telefone = telefones.GetString(telefones.GetColumnIndex(ContactsContract.CommonDataKinds.Phone.Number));
-                                    Phone numero = new Phone();
-                                    numero.Number = telefone;
-                                    contato.Phones.Add(numero);
-                                }
-                            telefones.Close();
+                        var telefones = ((Activity)context).ContentResolver.Query(ContactsContract.CommonDataKinds.Phone.ContentUri,
+                        null, ContactsContract.CommonDataKinds.Phone.InterfaceConsts.ContactId + " = " + idContato, null, null);
 
-                            var emails = ((Activity)context).ContentResolver.Query(ContactsContract.CommonDataKinds.Email.ContentUri,
-                            null, ContactsContract.CommonDataKinds.Email.InterfaceConsts.ContactId + " = " + idContato, null, null);
+                        if (telefones != null)
+                            while (telefones.MoveToNext())
+                            {
+                                string telefone = telefones.GetString(telefones.GetColumnIndex(ContactsContract.CommonDataKinds.Phone.Number));
+                                Phone numero = new Phone();
+                                numero.Number = telefone;
+                                contato.Phones.Add(numero);
+                            }
+                        telefones.Close();
 
-                            if (emails != null)
-                                while (emails.MoveToNext())
-                                {
-                                    string email = emails.GetString(emails.GetColumnIndex(ContactsContract.CommonDataKinds.Email.Address));
-                                    Email endereco = new Email();
-                                    endereco.Address = email;
-                                    contato.Emails.Add(endereco);
-                                }
-                            dadosAgenda.Add(contato);
-                            emails.Close();
-                        }
+                        var emails = ((Activity)context).ContentResolver.Query(ContactsContract.CommonDataKinds.Email.ContentUri,
+                        null, ContactsContract.CommonDataKinds.Email.InterfaceConsts.ContactId + " = " + idContato, null, null);
 
-                    }
-                    catch (System.Exception e)
-                    {
-                        Console.WriteLine("Error", e.Message);
+                        if (emails != null)
+                            while (emails.MoveToNext())
+                            {
+                                string email = emails.GetString(emails.GetColumnIndex(ContactsContract.CommonDataKinds.Email.Address));
+                                Email endereco = new Email();
+                                endereco.Address = email;
+                                contato.Emails.Add(endereco);
+                            }
+                        dadosAgenda.Add(contato);
+                        emails.Close();
                     }
                 }
             cursor.Close();
