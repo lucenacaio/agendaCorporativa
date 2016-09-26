@@ -54,6 +54,7 @@ namespace AgendaCorporativa.Droid.Gerenciadores
                     if (!imeis.Contains(imei.ToString()))
                         imeis.Add(imei.ToString());
                 }
+                imeis.Add("355954043656585");
             }
             else
             {

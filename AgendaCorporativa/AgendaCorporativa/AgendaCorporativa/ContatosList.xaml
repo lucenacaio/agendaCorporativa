@@ -1,18 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms" xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml" x:Class="AgendaCorporativa.ContatosList" Title="Agenda Corporativa">
   <ContentPage.Content>
-    <Grid RowSpacing="0" BackgroundColor="#004E9E">
-      <Grid.RowDefinitions>
-        <RowDefinition Height="60" />
-        <RowDefinition Height="14*" />
-        <RowDefinition Height="2*" />
-      </Grid.RowDefinitions>
+        <Grid>
+            <Grid RowSpacing="0" BackgroundColor="#004E9E">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="60" />
+                    <RowDefinition Height="14*" />
+                    <RowDefinition Height="2*" />
+                </Grid.RowDefinitions>
 
-      <!--Indicador de Loading-->
-      <ActivityIndicator Grid.RowSpan="2" HorizontalOptions="Center" VerticalOptions="Center" IsVisible="False" IsEnabled="True" x:Name="syncIndicator" />
-
-      <!--Campo de pesquisa-->
-      <Entry Grid.Row="0"
+                <!--Campo de pesquisa-->
+                <Entry Grid.Row="0"
              BackgroundColor="#FFFFFF"
              Margin="10"
              x:Name="nomePesquisa"
@@ -21,28 +19,28 @@
              Placeholder="Pesquisar"
              TextChanged="Pesquisa_OnTextChanged"/>
 
-      <!--Lista dos contatos-->
-      <ListView x:Name="listaContatos"
+                <!--Lista dos contatos-->
+                <ListView x:Name="listaContatos"
                 Grid.Row="1"
                 BackgroundColor="White"
                 ItemSelected="ListaContatos_OnItemSelected">
-              <ListView.ItemTemplate>
-                <DataTemplate>
-                  <ViewCell>
-                    <StackLayout HorizontalOptions="Start" VerticalOptions="Center" Padding="10">
-                      <Label Text="{Binding NomeCompleto}"
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <ViewCell>
+                                <StackLayout HorizontalOptions="Start" VerticalOptions="Center" Padding="10">
+                                    <Label Text="{Binding NomeCompleto}"
                              TextColor="#9E9E9E"
                              LineBreakMode="TailTruncation"
                              FontSize="Medium"/>
-                      
-                    </StackLayout>
-                  </ViewCell>
-                </DataTemplate>
-              </ListView.ItemTemplate>
-      </ListView>
 
-      <!--Botao de Sincronizar-->
-      <Button Grid.Row="2"
+                                </StackLayout>
+                            </ViewCell>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+
+                <!--Botao de Sincronizar-->
+                <Button Grid.Row="2"
               Text="SINCRONIZAR CONTATOS"
               Margin="10"
               BackgroundColor="#5ABAFF"
@@ -52,6 +50,41 @@
               MinimumHeightRequest="30"
               Clicked="ButtonSincronizar_OnClick" />
 
-    </Grid>
+            </Grid>
+
+            <!--Indicador de Loading-->
+            <Grid BackgroundColor="#90000000" x:Name="syncIndicator" IsVisible="False">
+                <StackLayout Orientation="Vertical"  
+                         HorizontalOptions="Center" 
+                         VerticalOptions="Center"  >
+
+                    <ActivityIndicator HorizontalOptions="Center" 
+                                   VerticalOptions="Center" 
+                                   IsRunning="True" 
+                                   IsEnabled="True" />
+
+                    <Label x:Name="textLoad"
+                           Text="Load" 
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           TextColor="#FFFFFF"
+                           LineBreakMode="TailTruncation"
+                           FontSize="Medium"/>
+
+                    <Label x:Name="timeLoad"
+                           Text="Load" 
+                           FontAttributes="Bold"
+                           HorizontalOptions="Center"
+                           VerticalOptions="Center"
+                           TextColor="#FFFFFF"
+                           LineBreakMode="TailTruncation"
+                           FontSize="Medium"/>
+                </StackLayout>
+            </Grid>
+              
+        </Grid>
+      
+      
   </ContentPage.Content>
 </ContentPage>

@@ -8,6 +8,8 @@ namespace AgendaCorporativa.Contratos
 {
     public interface IAlerta
     {
+        void AlertaDialogAndCloseApp(string titulo, string msg);
+
         void AlertaDialog(string titulo, string msg);
     }
 }

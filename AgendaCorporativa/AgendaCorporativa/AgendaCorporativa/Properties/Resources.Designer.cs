@@ -71,7 +71,7 @@ namespace AgendaCorporativa.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to http://www.codeandlions.com/csv_agenda.csv.
+        ///   Looks up a localized string similar to https://novaintranet.stefanini.com/ASDBASDBBDASBDASDBASBDSBEQWEQWEJHKASDASKJBNQWEQWMNDAS/agenda.csv.
         /// </summary>
         internal static string UrlDoArquivo {
             get {

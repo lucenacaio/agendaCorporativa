@@ -35,7 +35,7 @@ namespace AgendaCorporativa
                 ControleArquivo.DeletarArquivo();
 
                 var alerta = DependencyService.Get<IAlerta>();
-                alerta.AlertaDialog("Erro", erro.Message);
+                alerta.AlertaDialogAndCloseApp("Erro", erro.Message);
             }
             // The root page of your application
             //MainPage = mainPage;

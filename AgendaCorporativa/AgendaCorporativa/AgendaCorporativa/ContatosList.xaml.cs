@@ -55,49 +55,69 @@ namespace AgendaCorporativa
         private void CarregandoDados(bool status)
         {
             syncIndicator.IsVisible = status;
-            isBloqueado = status;
+            //isBloqueado = status;
             listaContatos.IsEnabled = !status;
         }
 
         public async void ButtonSincronizar_OnClick(object sender, EventArgs e)
         {
-           
+            //Caso seja iniciado uma chamada de serviço, bloqueia as views
+            CarregandoDados(true);
 
-            Exception error = null;
-            try
-            {
-                //Não executa o método caso esteja sendo executado algum serviço
-                if (isBloqueado) return;
+            //Limpa o textbox de pesquisa
+            nomePesquisa.Text = "";
 
-                //Caso seja iniciado uma chamada de serviço, bloqueia as views
-                CarregandoDados(true);
-                //Limpa o textbox de pesquisa
-                nomePesquisa.Text = "";
+            string titulo = "", msg = "";
 
-                //Baixa o arquivo
-                gerenciadorDeContatos.BaixarArquivoDeContatos();
+            List<Contato> result = await Task.Run(() => Sincroniza(out titulo, out msg));
 
-                //Carrega os contatos do arquivo
-                Contatos = gerenciadorDeContatos.ObtemContatosDoArquivo();
-                listaContatos.ItemsSource = Contatos;
+            listaContatos.ItemsSource = result;
 
-                //Carrega os contatos da Agenda
-                //List<Contact> contatosDoAparelho = await GerenciadorDeAgenda.CarregaAgendaDoAparelho();
-
-                //TODO - Atualizar a agenda do aparelho.
-                DependencyService.Get<IGerenciadorDeAgenda>().AtualizarAgendaDoAparelho(Contatos);
-            }
-            catch (Exception ex)
-            {
-                error = ex;
-            }
-
-            if (error != null)
-            {
-                await DisplayAlert("Erro ao recarregar", "Não foi possível recarregar os dados (" + error.Message + ")", "OK");
-            }
             //Quando o serviço é finalizado seja ou não com sucesso, habilita todas as views
             CarregandoDados(false);
+
+            IAlerta alerta = DependencyService.Get<IAlerta>();
+            alerta.AlertaDialog(titulo, msg);
+        }
+
+        private List<Contato> Sincroniza(out string titulo, out string message)
+        {
+            titulo = "";
+            message = "";
+
+            //Não executa o método caso esteja sendo executado algum serviço
+            if (!isBloqueado)
+            {
+                titulo = "Sucesso";
+                message = "Atualização finalizada";
+
+                try
+                {
+                    AtualizaMsgLoad("Baixando arquivo...");
+                    gerenciadorDeContatos.BaixarArquivoDeContatos();
+
+                    AtualizaMsgLoad("Carregando contatos do arquivo...");
+                    Contatos = gerenciadorDeContatos.ObtemContatosDoArquivo();
+
+                    AtualizaMsgLoad("Atualizando lista de contatos...");
+                    DependencyService.Get<IGerenciadorDeAgenda>().AtualizarAgendaDoAparelho(Contatos);
+                }
+                catch (Exception ex)
+                {
+                    message = "Não foi possível recarregar os dados (" + ex.Message + ")";
+                    titulo = "Erro";
+                }
+            }
+
+            return Contatos;
+        }
+
+        private void AtualizaMsgLoad(string msg)
+        {
+            Device.BeginInvokeOnMainThread(() =>
+            {
+                textLoad.Text = msg;
+            });
         }
     }
 }
