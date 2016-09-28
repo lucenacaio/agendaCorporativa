@@ -29,7 +29,7 @@ namespace AgendaCorporativa.Controladores
                            select imei).Count() > 0;
 
             if(!result)
-                throw new ExcecaoDeAutenticacao("Aparelho não autorizado.\n Imei: " + listaDeImeiDoAparelho[0]);
+                throw new ExcecaoDeAutenticacao("Seu IMEI " + listaDeImeiDoAparelho[0] + " não está cadastrado na agenda corporativa Stefanini. Por favor, entre em contato com o setor de Gestão de Telecom.");
         }
     }
 }
