@@ -18,7 +18,7 @@ namespace AgendaCorporativa.Gerenciadores
     {
         private IGerenciadorDeDownload gerenciadorDeDownload;
 
-        private readonly string UrlDoArquivo = "http://www.codeandlions.com/csv_agenda.csv";
+        private readonly string UrlDoArquivo = Properties.Resources.UrlDoArquivo;
 
         private readonly string NomeArquivoLocal = "stf_agenda.txt";
 
