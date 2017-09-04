@@ -1,10 +1,46 @@
-﻿<Properties StartupItem="AgendaCorporativa/AgendaCorporativa.iOS/AgendaCorporativa.iOS.csproj">
-  <MonoDevelop.Ide.Workbench />
-  <MonoDevelop.Ide.ItemProperties.Aplicacao.AgendaCorporativa.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.d80bac8240e02be9c0d1f39c1437392fd27ae625" />
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Release|iPhone" />
+﻿<Properties StartupConfiguration="{D1FDBDF0-9A76-420B-826C-CE732129D361}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="AgendaCorporativa/AgendaCorporativa.iOS/Entitlements.plist">
+    <Files>
+      <File FileName="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeArquivoIOS.cs" Line="28" Column="1" />
+      <File FileName="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeImeiIOS.cs" Line="58" Column="62" />
+      <File FileName="AgendaCorporativa/AgendaCorporativa/Controladores/ControleDeAutorizacao.cs" Line="31" Column="1" />
+      <File FileName="AgendaCorporativa/AgendaCorporativa/Gerenciadores/GerenciadorDeContatos.cs" Line="226" Column="1" />
+      <File FileName="AgendaCorporativa/AgendaCorporativa.iOS/IOSExtentions/IOSExtentions.cs" Line="1" Column="1" />
+      <File FileName="AgendaCorporativa/AgendaCorporativa.iOS/iTunesMetadata.plist" />
+      <File FileName="AgendaCorporativa/AgendaCorporativa.iOS/Entitlements.plist" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.ItemProperties.Aplicacao.AgendaCorporativa.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneDeviceTarget.97990aaa554fc8b041f001bc10ff91c2ed34efbc">
+    <MonoDevelop.MacDev.AppleDevelopmentTeam DeveloperId="MJSBLQF23L" TeamId="2DX3MQRT7Y" />
+  </MonoDevelop.Ide.ItemProperties.Aplicacao.AgendaCorporativa.iOS>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa/ContatosList.xaml.cs" relfile="AgendaCorporativa/AgendaCorporativa/ContatosList.xaml.cs" line="89" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/Stefanini.Xamarin/Gerenciadores/GerenciadorDeAgenda.cs" relfile="Stefanini.Xamarin/Gerenciadores/GerenciadorDeAgenda.cs" line="23" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa/Controladores/ControleDeAutorizacao.cs" relfile="AgendaCorporativa/AgendaCorporativa/Controladores/ControleDeAutorizacao.cs" line="31" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeDownloadIOS.cs" relfile="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeDownloadIOS.cs" line="35" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa/Controladores/ControleArquivo.cs" relfile="AgendaCorporativa/AgendaCorporativa/Controladores/ControleArquivo.cs" line="52" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa/Controladores/ControleArquivo.cs" relfile="AgendaCorporativa/AgendaCorporativa/Controladores/ControleArquivo.cs" line="20" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/AlertaDialogIOS.cs" relfile="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/AlertaDialogIOS.cs" line="18" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeAgendaIOS.cs" relfile="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeAgendaIOS.cs" line="34" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeAgendaIOS.cs" relfile="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeAgendaIOS.cs" line="44" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeAgendaIOS.cs" relfile="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeAgendaIOS.cs" line="70" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeAgendaIOS.cs" relfile="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeAgendaIOS.cs" line="86" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeAgendaIOS.cs" relfile="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeAgendaIOS.cs" line="115" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeAgendaIOS.cs" relfile="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeAgendaIOS.cs" line="136" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeAgendaIOS.cs" relfile="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeAgendaIOS.cs" line="148" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeNotificacaoIOS.cs" relfile="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeNotificacaoIOS.cs" line="20" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeNotificacaoIOS.cs" relfile="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeNotificacaoIOS.cs" line="46" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeImeiIOS.cs" relfile="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeImeiIOS.cs" line="44" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeImeiIOS.cs" relfile="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeImeiIOS.cs" line="62" column="1" />
+      <Breakpoint file="/Users/stfcel-346/Documents/A/AgendaCorporativa/AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeImeiIOS.cs" relfile="AgendaCorporativa/AgendaCorporativa.iOS/Gerenciadores/GerenciadorDeImeiIOS.cs" line="60" column="1" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
   <AuthorInfo Name="Stefanini" Email="stefanini@stefanini.com" Copyright="© 2016 Stefanini" Company="Stefanini" Trademark="" />
+  <MultiItemStartupConfigurations />
+  <DisabledProjects>
+    <String>AgendaCorporativa/AgendaCorporativa.Droid/AgendaCorporativa.Droid.csproj</String>
+  </DisabledProjects>
 </Properties>

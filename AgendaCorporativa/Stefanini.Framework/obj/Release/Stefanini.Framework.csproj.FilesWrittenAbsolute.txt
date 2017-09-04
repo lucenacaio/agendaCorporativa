@@ -3,3 +3,23 @@
 /Users/mpleite1/Documents/Xamarin/AGENDA/STF-CPG-Agenda_Coorporativa/AgendaCorporativa/Stefanini.Framework/bin/Release/Stefanini.Framework.dll
 /Users/mpleite1/Documents/Xamarin/AGENDA/STF-CPG-Agenda_Coorporativa/AgendaCorporativa/Stefanini.Framework/obj/Release/Stefanini.Framework.dll
 /Users/mpleite1/Documents/Xamarin/AGENDA/STF-CPG-Agenda_Coorporativa/AgendaCorporativa/Stefanini.Framework/obj/Release/Stefanini.Framework.dll.mdb
+/Users/leno/Documents/Stefanini/Projetos/Agenda Corporativa/A/AgendaCorporativa/Stefanini.Framework/obj/Release/.NETPortable,Version=v4.5,Profile=Profile111.AssemblyAttribute.cs
+/Users/leno/Documents/Stefanini/Projetos/Agenda Corporativa/A/AgendaCorporativa/Stefanini.Framework/bin/Release/Stefanini.Framework.dll.mdb
+/Users/leno/Documents/Stefanini/Projetos/Agenda Corporativa/A/AgendaCorporativa/Stefanini.Framework/bin/Release/Stefanini.Framework.pdb
+/Users/leno/Documents/Stefanini/Projetos/Agenda Corporativa/A/AgendaCorporativa/Stefanini.Framework/bin/Release/Stefanini.Framework.dll
+/Users/leno/Documents/Stefanini/Projetos/Agenda Corporativa/A/AgendaCorporativa/Stefanini.Framework/obj/Release/Stefanini.Framework.dll
+/Users/leno/Documents/Stefanini/Projetos/Agenda Corporativa/A/AgendaCorporativa/Stefanini.Framework/obj/Release/Stefanini.Framework.dll.mdb
+/Users/leno/Documents/Stefanini/Projetos/Agenda Corporativa/A/AgendaCorporativa/Stefanini.Framework/obj/Release/Stefanini.Framework.pdb
+/Users/leno/Documents/Stefanini/Projetos/Agenda Corporativa/A/AgendaCorporativa/Stefanini.Framework/bin/Release/Xamarin.Forms.Core.dll
+/Users/leno/Documents/Stefanini/Projetos/Agenda Corporativa/A/AgendaCorporativa/Stefanini.Framework/bin/Release/Xamarin.Forms.Platform.dll
+/Users/leno/Documents/Stefanini/Projetos/Agenda Corporativa/A/AgendaCorporativa/Stefanini.Framework/bin/Release/Xamarin.Forms.Xaml.dll
+/Users/stfcel-346/Documents/A/AgendaCorporativa/Stefanini.Framework/obj/Release/.NETPortable,Version=v4.5,Profile=Profile111.AssemblyAttribute.cs
+/Users/stfcel-346/Documents/A/AgendaCorporativa/Stefanini.Framework/bin/Release/Stefanini.Framework.dll.mdb
+/Users/stfcel-346/Documents/A/AgendaCorporativa/Stefanini.Framework/bin/Release/Stefanini.Framework.pdb
+/Users/stfcel-346/Documents/A/AgendaCorporativa/Stefanini.Framework/bin/Release/Stefanini.Framework.dll
+/Users/stfcel-346/Documents/A/AgendaCorporativa/Stefanini.Framework/obj/Release/Stefanini.Framework.dll
+/Users/stfcel-346/Documents/A/AgendaCorporativa/Stefanini.Framework/obj/Release/Stefanini.Framework.dll.mdb
+/Users/stfcel-346/Documents/A/AgendaCorporativa/Stefanini.Framework/obj/Release/Stefanini.Framework.pdb
+/Users/stfcel-346/Documents/A/AgendaCorporativa/Stefanini.Framework/bin/Release/Xamarin.Forms.Core.dll
+/Users/stfcel-346/Documents/A/AgendaCorporativa/Stefanini.Framework/bin/Release/Xamarin.Forms.Platform.dll
+/Users/stfcel-346/Documents/A/AgendaCorporativa/Stefanini.Framework/bin/Release/Xamarin.Forms.Xaml.dll

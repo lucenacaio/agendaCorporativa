@@ -214,9 +214,14 @@ namespace AgendaCorporativa.Gerenciadores
                 string dadosImeis = valores[0];
 
                 //IMEI
-                string imei = FormataEmei(dadosImeis);
-                imeis.Add(imei);
-            }
+                 //IMEI
+                if(dadosImeis.Length > 1)
+				{
+					string imei = FormataEmei(dadosImeis);
+					if (imei.Length > 1)
+						imeis.Add(imei);
+				}
+			}
 
             return imeis;
         }
@@ -231,10 +236,10 @@ namespace AgendaCorporativa.Gerenciadores
         private string FormataEmei(string dadosImeis)
         {
             //Deixa apenas os digitos
-            string digitosImei = dadosImeis.ApenasDigitos();
-
+            //string digitosImei = dadosImeis.ApenasDigitos();
+			 string digitosImei = dadosImeis;
             //Se tiver 15 digitos é um imei válido.
-            return digitosImei.Length == 15 ? digitosImei : "";
+            return (digitosImei.Length == 12 || digitosImei.Length == 13 || digitosImei.Length == 15) ? digitosImei : "";
 
         }
     }

@@ -58,10 +58,10 @@ namespace AgendaCorporativa
         /// </summary>
         private void VerificarArquivoContatos()
         {
-            if (string.IsNullOrWhiteSpace(ControleArquivo.LerArquivo()))
-            {
+           // if (string.IsNullOrWhiteSpace(ControleArquivo.LerArquivo()))
+            //{
                 ControleArquivo.BaixareSalvarArquivo();
-            }
+            //}
         }
 
         protected override void OnStart()
